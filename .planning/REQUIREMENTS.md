@@ -53,17 +53,17 @@
 
 ### Pipeline & Infrastructure
 
-- [ ] **PIPELINE-01**: Scraping → AI selection → Hugo build pipeline orchestration (BullMQ)
+- [x] **PIPELINE-01**: Scraping → AI selection → Hugo build pipeline orchestration (BullMQ)
 - [ ] **PIPELINE-02**: Landing page live within 10 minutes of starting scrape
-- [ ] **PIPELINE-03**: Job queue with retry logic and failure recovery
-- [ ] **INFRA-01**: PostgreSQL database with tenant-isolated schema
+- [x] **PIPELINE-03**: Job queue with retry logic and failure recovery
+- [x] **INFRA-01**: PostgreSQL database with tenant-isolated schema
 - [ ] **INFRA-02**: S3 bucket with per-tenant key prefix isolation
 
 ### Monitoring & Analytics
 
 - [ ] **MONITOR-01**: Dashboard showing landing page views, CTR, time-on-site per preview link
 - [ ] **MONITOR-02**: Conversion tracking (preview → paid subscription)
-- [ ] **MONITOR-03**: Scraping pipeline success/failure monitoring
+- [x] **MONITOR-03**: Scraping pipeline success/failure monitoring
 
 ## v2 Requirements
 
@@ -129,14 +129,14 @@
 | DNS-01 | Phase 6 | Pending |
 | DNS-02 | Phase 6 | Pending |
 | DNS-03 | Phase 6 | Pending |
-| PIPELINE-01 | Phase 1 | Pending |
+| PIPELINE-01 | Phase 1 | Complete |
 | PIPELINE-02 | Phase 2 | Pending |
-| PIPELINE-03 | Phase 1 | Pending |
-| INFRA-01 | Phase 1 | Pending |
+| PIPELINE-03 | Phase 1 | Complete |
+| INFRA-01 | Phase 1 | Complete |
 | INFRA-02 | Phase 3 | Pending |
 | MONITOR-01 | Phase 3 | Pending |
 | MONITOR-02 | Phase 3 | Pending |
-| MONITOR-03 | Phase 1 | Pending |
+| MONITOR-03 | Phase 1 | Complete |
 
 **Coverage:**
 - v1 requirements: 36 total
