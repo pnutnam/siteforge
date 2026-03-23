@@ -7,14 +7,14 @@
 
 ### Scraping
 
-- [ ] **SCRAPE-01**: Headless Playwright scrapes Google Maps listing (business name, address, phone, hours, 160 results per query, all reviews)
-- [ ] **SCRAPE-02**: Scrape Instagram profile and top posts by engagement (likes + comments + shares)
-- [ ] **SCRAPE-03**: Scrape Google Reviews (text, rating, date, author)
-- [ ] **SCRAPE-04**: Scrape Facebook page info and top posts
-- [ ] **SCRAPE-05**: Scrape Yelp business info and top reviews
-- [ ] **SCRAPE-06**: Parallel scraping of all sources per business (Promise.all with individual retry logic)
-- [ ] **SCRAPE-07**: Anti-bot detection handling (stealth mode, proxy rotation, rate limiting)
-- [ ] **SCRAPE-08**: Scraped data validation and normalization before AI processing
+- [x] **SCRAPE-01**: Headless Playwright scrapes Google Maps listing (business name, address, phone, hours, 160 results per query, all reviews)
+- [x] **SCRAPE-02**: Scrape Instagram profile and top posts by engagement (likes + comments + shares)
+- [x] **SCRAPE-03**: Scrape Google Reviews (text, rating, date, author)
+- [x] **SCRAPE-04**: Scrape Facebook page info and top posts
+- [x] **SCRAPE-05**: Scrape Yelp business info and top reviews
+- [x] **SCRAPE-06**: Parallel scraping of all sources per business (Promise.all with individual retry logic)
+- [x] **SCRAPE-07**: Anti-bot detection handling (stealth mode, proxy rotation, rate limiting)
+- [x] **SCRAPE-08**: Scraped data validation and normalization before AI processing
 
 ### Content Intelligence
 
@@ -101,14 +101,14 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SCRAPE-01 | Phase 1 | Pending |
-| SCRAPE-02 | Phase 1 | Pending |
-| SCRAPE-03 | Phase 1 | Pending |
-| SCRAPE-04 | Phase 1 | Pending |
-| SCRAPE-05 | Phase 1 | Pending |
-| SCRAPE-06 | Phase 1 | Pending |
-| SCRAPE-07 | Phase 1 | Pending |
-| SCRAPE-08 | Phase 1 | Pending |
+| SCRAPE-01 | Phase 1 | Complete |
+| SCRAPE-02 | Phase 1 | Complete |
+| SCRAPE-03 | Phase 1 | Complete |
+| SCRAPE-04 | Phase 1 | Complete |
+| SCRAPE-05 | Phase 1 | Complete |
+| SCRAPE-06 | Phase 1 | Complete |
+| SCRAPE-07 | Phase 1 | Complete |
+| SCRAPE-08 | Phase 1 | Complete |
 | CONTENT-01 | Phase 2 | Pending |
 | CONTENT-02 | Phase 2 | Pending |
 | CONTENT-03 | Phase 2 | Pending |

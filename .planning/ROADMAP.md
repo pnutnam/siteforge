@@ -6,7 +6,7 @@ SiteForge is an AI-powered local business website platform that scrapes business
 
 ## Phases
 
-- [ ] **Phase 1: Scraping Infrastructure** - Reliable data extraction from all sources
+- [P] **Phase 1: Scraping Infrastructure** - Reliable data extraction from all sources
 - [ ] **Phase 2: AI Content Pipeline** - AI selects and generates site content
 - [ ] **Phase 3: Preview Landing Pages** - Sales-ready preview links for cold outreach
 - [ ] **Phase 4: Production Site** - Live sites with WYSIWYG editing for customers
@@ -34,7 +34,7 @@ SiteForge is an AI-powered local business website platform that scrapes business
 
 Plans:
 - [ ] 01-01-PLAN.md -- Wave 0: Shared foundation (test configs, base scraper class, Zod schemas, stealth context, BullMQ queue, PostgreSQL schema, status tracker)
-- [ ] 01-02-PLAN.md -- Wave 1: All 5 scrapers (Google Maps, Instagram, Facebook, Yelp, Google Reviews) + parallel orchestrator
+- [x] 01-02-PLAN.md -- Wave 1: All 5 scrapers (Google Maps, Instagram, Facebook, Yelp, Google Reviews) + parallel orchestrator
 - [ ] 01-03-PLAN.md -- Wave 2: BullMQ job flows, retry logic, PostgreSQL tenant middleware, dashboard SSE endpoints
 - [ ] 01-04-PLAN.md -- Wave 3: Integration checkpoint (end-to-end verification)
 
@@ -104,7 +104,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Scraping Infrastructure | 0/4 | Not started | - |
+| 1. Scraping Infrastructure | 1/4 | In progress | 2026-03-23 |
 | 2. AI Content Pipeline | 0/TBD | Not started | - |
 | 3. Preview Landing Pages | 0/TBD | Not started | - |
 | 4. Production Site | 0/TBD | Not started | - |
