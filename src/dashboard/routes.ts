@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import { getScrapeStatus } from './scrape-status';
 import { scrapeQueueEvents } from '../jobs/queue';
 import { SourceType } from '../jobs/queue';
+import { startBusinessScrape } from '../jobs/producers';
 
 const router = Router();
 
@@ -72,6 +73,31 @@ router.get('/scrape/status/:businessId/stream', async (req: Request, res: Respon
     scrapeQueueEvents.off('completed', completedHandler);
     scrapeQueueEvents.off('failed', failedHandler);
   });
+});
+
+router.post('/scrape/start', async (req: Request, res: Response) => {
+  const tenantId = (req as any).tenantId;
+  if (!tenantId) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  const { businessId, name, address, url } = req.body;
+  if (!businessId || !name || !address) {
+    return res.status(400).json({ error: 'Missing required fields: businessId, name, address' });
+  }
+
+  try {
+    const flow = await startBusinessScrape({
+      businessId,
+      tenantId,
+      name,
+      address,
+      url: url || '',
+    });
+    res.status(202).json({ status: 'accepted', flowId: (flow as any).id });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to start scrape', details: error instanceof Error ? error.message : String(error) });
+  }
 });
 
 export default router;
