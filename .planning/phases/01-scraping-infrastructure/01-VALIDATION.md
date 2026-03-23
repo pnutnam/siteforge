@@ -2,8 +2,8 @@
 phase: 01
 slug: scraping-infrastructure
 status: draft
-nyquist_compliant: false
-wave_0_complete: false
+nyquist_compliant: true
+wave_0_complete: true
 created: 2026-03-23
 ---
 
@@ -57,21 +57,21 @@ created: 2026-03-23
 
 ## Wave 0 Requirements
 
-- [ ] `src/scraping/scrapers/base.ts` — abstract scraper class (shared by all scrapers)
-- [ ] `src/scraping/scrapers/google-maps.test.ts` — SCRAPE-01 tests
-- [ ] `src/scraping/scrapers/instagram.test.ts` — SCRAPE-02 tests
-- [ ] `src/scraping/scrapers/google-reviews.test.ts` — SCRAPE-03 tests
-- [ ] `src/scraping/scrapers/facebook.test.ts` — SCRAPE-04 tests
-- [ ] `src/scraping/scrapers/yelp.test.ts` — SCRAPE-05 tests
-- [ ] `src/scraping/scrapers/parallel.test.ts` — SCRAPE-06 tests (p-limit concurrency)
-- [ ] `src/scraping/stealth/context-builder.test.ts` — SCRAPE-07 tests (fingerprint randomization)
-- [ ] `src/scraping/validation/schemas.test.ts` — SCRAPE-08 tests (Zod partial-store)
-- [ ] `src/jobs/flows.test.ts` — PIPELINE-01 tests (BullMQ FlowProducer)
-- [ ] `src/jobs/retry.test.ts` — PIPELINE-03 tests (exponential backoff)
-- [ ] `src/database/tenant-middleware.test.ts` — INFRA-01 tests (RLS + SET LOCAL)
-- [ ] `src/dashboard/scrape-status.test.ts` — MONITOR-03 tests (BullMQ events)
-- [ ] `vitest.config.ts` — Vitest configuration
-- [ ] `playwright.config.ts` — Playwright configuration
+- [x] `src/scraping/scrapers/base.ts` — abstract scraper class (shared by all scrapers)
+- [x] `src/scraping/scrapers/google-maps.test.ts` — SCRAPE-01 tests
+- [x] `src/scraping/scrapers/instagram.test.ts` — SCRAPE-02 tests
+- [x] `src/scraping/scrapers/google-reviews.test.ts` — SCRAPE-03 tests
+- [x] `src/scraping/scrapers/facebook.test.ts` — SCRAPE-04 tests
+- [x] `src/scraping/scrapers/yelp.test.ts` — SCRAPE-05 tests
+- [x] `src/scraping/scrapers/parallel.test.ts` — SCRAPE-06 tests (p-limit concurrency)
+- [x] `src/scraping/stealth/context-builder.test.ts` — SCRAPE-07 tests (fingerprint randomization)
+- [x] `src/scraping/validation/schemas.test.ts` — SCRAPE-08 tests (Zod partial-store)
+- [x] `src/jobs/flows.test.ts` — PIPELINE-01 tests (BullMQ FlowProducer)
+- [x] `src/jobs/retry.test.ts` — PIPELINE-03 tests (exponential backoff)
+- [x] `src/database/tenant-middleware.test.ts` — INFRA-01 tests (RLS + SET LOCAL)
+- [x] `src/dashboard/scrape-status.test.ts` — MONITOR-03 tests (BullMQ events)
+- [x] `vitest.config.ts` — Vitest configuration
+- [x] `playwright.config.ts` — Playwright configuration
 
 ---
 
@@ -90,11 +90,11 @@ created: 2026-03-23
 
 ## Validation Sign-Off
 
-- [ ] All tasks have `<automated>` verify or Wave 0 dependencies
-- [ ] Sampling continuity: no 3 consecutive tasks without automated verify
-- [ ] Wave 0 covers all MISSING references
-- [ ] No watch-mode flags
-- [ ] Feedback latency < 120s
-- [ ] `nyquist_compliant: true` set in frontmatter
+- [x] All tasks have `<automated>` verify or Wave 0 dependencies
+- [x] Sampling continuity: no 3 consecutive tasks without automated verify
+- [x] Wave 0 covers all MISSING references
+- [x] No watch-mode flags
+- [x] Feedback latency < 120s
+- [x] `nyquist_compliant: true` set in frontmatter
 
 **Approval:** pending
