@@ -30,13 +30,14 @@ SiteForge is an AI-powered local business website platform that scrapes business
   8. Job queue persists retries and failures across server restarts
   9. Dashboard shows realtime scrape status per business (pending, running, success, failed)
   10. PostgreSQL schema supports tenant-isolated data storage from day one
-**Plans**: 4 plans
+**Plans**: 5 plans
 
 Plans:
 - [ ] 01-01-PLAN.md -- Wave 0: Shared foundation (test configs, base scraper class, Zod schemas, stealth context, BullMQ queue, PostgreSQL schema, status tracker)
 - [x] 01-02-PLAN.md -- Wave 1: All 5 scrapers (Google Maps, Instagram, Facebook, Yelp, Google Reviews) + parallel orchestrator
 - [ ] 01-03-PLAN.md -- Wave 2: BullMQ job flows, retry logic, PostgreSQL tenant middleware, dashboard SSE endpoints
 - [ ] 01-04-PLAN.md -- Wave 3: Integration checkpoint (end-to-end verification)
+- [ ] 01-05-PLAN.md -- Gap closure: missing dependencies, POST /api/scrape/start endpoint, Instagram shares fix
 
 ### Phase 2: AI Content Pipeline
 **Goal**: AI selects highest-quality content and generates site copy from scraped data
@@ -104,7 +105,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Scraping Infrastructure | 3/4 | In Progress|  |
+| 1. Scraping Infrastructure | 3/5 | In Progress|  |
 | 2. AI Content Pipeline | 0/TBD | Not started | - |
 | 3. Preview Landing Pages | 0/TBD | Not started | - |
 | 4. Production Site | 0/TBD | Not started | - |
@@ -125,3 +126,8 @@ Plans:
 | 6. DNS & Custom Domains | DNS-01, DNS-02, DNS-03 (3) |
 
 **Mapped:** 36/36 requirements (100%)
+
+---
+
+*Requirements defined: 2026-03-23*
+*Last updated: 2026-03-23 after gap closure planning*
