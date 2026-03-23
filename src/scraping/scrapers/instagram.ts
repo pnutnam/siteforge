@@ -62,12 +62,18 @@ export class InstagramScraper extends BaseScraper {
         const likes = parseEngagementCount(likesStr);
         const comments = await postPage.locator('ul li').count();
 
-        const engagement = likes + comments;
+        // Extract shares - look for share button with count
+        const sharesEl = postPage.locator('[aria-label*="share"], [aria-label*="Share"]').first();
+        const sharesText = await sharesEl.textContent().catch(() => '0');
+        const shares = parseEngagementCount(sharesText || '0');
+
+        const engagement = likes + comments + shares;
 
         posts.push({
           id: href.split('/')[2] ?? '',
           likes,
           comments,
+          shares,
           engagement,
           caption: await postPage.locator('li span span').first().textContent().catch(() => ''),
           postedAt: '',
