@@ -3,7 +3,7 @@ import { BusinessScrapeJob } from '../queue';
 import { initScrapeStatus, updateBusinessStatus } from '../../dashboard/scrape-status';
 
 export async function processBusinessScrape(job: Job<BusinessScrapeJob>) {
-  const { businessId, tenantId, name, address } = job.data;
+  const { businessId, tenantId } = job.data;
 
   const sources = ['google_maps', 'instagram', 'facebook', 'yelp', 'google_reviews'];
   initScrapeStatus(businessId, tenantId, sources as any[]);

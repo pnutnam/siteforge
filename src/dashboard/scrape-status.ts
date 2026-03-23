@@ -93,45 +93,42 @@ export function subscribeToScrapeEvents(
   businessId: string,
   tenantId: string
 ): () => void {
-  const handlers: Array<() => void> = [];
+  const waitingHandler = () => {};
+  const activeHandler = ({ name }: { jobId: string; name?: string }) => {
+    const source = name as SourceType;
+    if (['google_maps', 'instagram', 'facebook', 'yelp', 'google_reviews'].includes(source)) {
+      const currentStatus = getScrapeStatus(businessId, tenantId);
+      updateSourceStatus(businessId, tenantId, source, {
+        status: 'in_progress',
+        attempts: (currentStatus?.sources[source]?.attempts || 0) + 1,
+      });
+    }
+  };
+  const completedHandler = ({ name }: { jobId: string; name?: string }) => {
+    const source = name as SourceType;
+    if (['google_maps', 'instagram', 'facebook', 'yelp', 'google_reviews'].includes(source)) {
+      updateSourceStatus(businessId, tenantId, source, { status: 'completed' });
+    }
+  };
+  const failedHandler = ({ name, failedReason }: { jobId: string; name?: string; failedReason?: string }) => {
+    const source = name as SourceType;
+    if (['google_maps', 'instagram', 'facebook', 'yelp', 'google_reviews'].includes(source)) {
+      updateSourceStatus(businessId, tenantId, source, {
+        status: 'failed',
+        lastError: failedReason,
+      });
+    }
+  };
 
-  handlers.push(
-    scrapeQueueEvents.on('waiting', ({ jobId }) => {})
-  );
+  scrapeQueueEvents.on('waiting', waitingHandler);
+  scrapeQueueEvents.on('active', activeHandler);
+  scrapeQueueEvents.on('completed', completedHandler);
+  scrapeQueueEvents.on('failed', failedHandler);
 
-  handlers.push(
-    scrapeQueueEvents.on('active', ({ jobId, name }) => {
-      const source = name as SourceType;
-      if (['google_maps', 'instagram', 'facebook', 'yelp', 'google_reviews'].includes(source)) {
-        const currentStatus = getScrapeStatus(businessId, tenantId);
-        updateSourceStatus(businessId, tenantId, source, {
-          status: 'in_progress',
-          attempts: (currentStatus?.sources[source]?.attempts || 0) + 1,
-        });
-      }
-    })
-  );
-
-  handlers.push(
-    scrapeQueueEvents.on('completed', ({ jobId, name }) => {
-      const source = name as SourceType;
-      if (['google_maps', 'instagram', 'facebook', 'yelp', 'google_reviews'].includes(source)) {
-        updateSourceStatus(businessId, tenantId, source, { status: 'completed' });
-      }
-    })
-  );
-
-  handlers.push(
-    scrapeQueueEvents.on('failed', ({ jobId, name, failedReason }) => {
-      const source = name as SourceType;
-      if (['google_maps', 'instagram', 'facebook', 'yelp', 'google_reviews'].includes(source)) {
-        updateSourceStatus(businessId, tenantId, source, {
-          status: 'failed',
-          lastError: failedReason,
-        });
-      }
-    })
-  );
-
-  return () => handlers.forEach(h => h());
+  return () => {
+    scrapeQueueEvents.off('waiting', waitingHandler);
+    scrapeQueueEvents.off('active', activeHandler);
+    scrapeQueueEvents.off('completed', completedHandler);
+    scrapeQueueEvents.off('failed', failedHandler);
+  };
 }

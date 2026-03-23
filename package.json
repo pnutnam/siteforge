@@ -1,13 +1,19 @@
 {
   "dependencies": {
+    "@faker-js/faker": "^9.9.0",
     "@ruvector/ruvllm": "^2.5.2",
     "bullmq": "^5.71.0",
     "drizzle-orm": "^0.45.1",
     "ioredis": "^5.10.1",
+    "p-limit": "^7.3.0",
     "pg": "^8.20.0",
+    "playwright-extra": "^4.3.6",
     "ruvector": "^0.2.12"
   },
   "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.5.0",
+    "@types/pg": "^8.20.0",
     "typescript": "^6.0.2",
     "vitest": "^4.1.1"
   }

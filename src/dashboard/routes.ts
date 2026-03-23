@@ -6,8 +6,8 @@ import { SourceType } from '../jobs/queue';
 const router = Router();
 
 router.get('/scrape/status/:businessId', async (req: Request, res: Response) => {
-  const { businessId } = req.params;
-  const tenantId = (req as any).tenantId;
+  const businessId = req.params.businessId as string;
+  const tenantId = (req as any).tenantId as string;
 
   if (!tenantId) {
     return res.status(401).json({ error: 'Unauthorized' });
@@ -23,8 +23,8 @@ router.get('/scrape/status/:businessId', async (req: Request, res: Response) => 
 });
 
 router.get('/scrape/status/:businessId/stream', async (req: Request, res: Response) => {
-  const { businessId } = req.params;
-  const tenantId = (req as any).tenantId;
+  const businessId = req.params.businessId as string;
+  const tenantId = (req as any).tenantId as string;
 
   if (!tenantId) {
     return res.status(401).json({ error: 'Unauthorized' });
@@ -40,25 +40,28 @@ router.get('/scrape/status/:businessId/stream', async (req: Request, res: Respon
     res.write(`data: ${JSON.stringify(initialStatus)}\n\n`);
   }
 
-  const unsubscribe = scrapeQueueEvents.on('completed', ({ jobId, name }) => {
-    const source = name as SourceType;
+  const completedHandler = (data: { jobId: string; name?: string }) => {
+    const source = data.name as SourceType;
     if (['google_maps', 'instagram', 'facebook', 'yelp', 'google_reviews'].includes(source)) {
       const status = getScrapeStatus(businessId, tenantId);
       if (status) {
         res.write(`data: ${JSON.stringify(status)}\n\n`);
       }
     }
-  });
+  };
 
-  const unsubFailed = scrapeQueueEvents.on('failed', ({ jobId, name, failedReason }) => {
-    const source = name as SourceType;
+  const failedHandler = (data: { jobId: string; name?: string; failedReason?: string }) => {
+    const source = data.name as SourceType;
     if (['google_maps', 'instagram', 'facebook', 'yelp', 'google_reviews'].includes(source)) {
       const status = getScrapeStatus(businessId, tenantId);
       if (status) {
         res.write(`data: ${JSON.stringify(status)}\n\n`);
       }
     }
-  });
+  };
+
+  scrapeQueueEvents.on('completed', completedHandler);
+  scrapeQueueEvents.on('failed', failedHandler);
 
   const heartbeat = setInterval(() => {
     res.write(': heartbeat\n\n');
@@ -66,8 +69,8 @@ router.get('/scrape/status/:businessId/stream', async (req: Request, res: Respon
 
   req.on('close', () => {
     clearInterval(heartbeat);
-    unsubscribe();
-    unsubFailed();
+    scrapeQueueEvents.off('completed', completedHandler);
+    scrapeQueueEvents.off('failed', failedHandler);
   });
 });
 

@@ -68,17 +68,11 @@ export const DEFAULT_JOB_OPTIONS = {
 };
 
 // ---------------------------------------------------------------------------
-// Redis connection
+// Redis connection config
 // ---------------------------------------------------------------------------
-import IORedis from 'ioredis';
-
-const redisConnection = new IORedis(process.env.REDIS_URL || 'redis://localhost:6379', {
-  maxRetriesPerRequest: null,
-  enableReadyCheck: false,
-  connectTimeout: 10000,
-});
-
-export { redisConnection };
+export const redisConfig = {
+  url: process.env.REDIS_URL || 'redis://localhost:6379',
+};
 
 // ---------------------------------------------------------------------------
 // BullMQ instances
@@ -86,16 +80,16 @@ export { redisConnection };
 import { Queue, FlowProducer, QueueEvents } from 'bullmq';
 
 export const scrapeQueue = new Queue('scrape', {
-  connection: redisConnection,
+  connection: redisConfig,
   defaultJobOptions: DEFAULT_JOB_OPTIONS,
 });
 
 export const flowProducer = new FlowProducer({
-  connection: redisConnection,
+  connection: redisConfig,
 });
 
 export const scrapeQueueEvents = new QueueEvents('scrape', {
-  connection: redisConnection,
+  connection: redisConfig,
 });
 
 // ---------------------------------------------------------------------------
@@ -118,6 +112,7 @@ export async function createBusinessScrapeFlow(jobData: BusinessScrapeJob) {
         businessId: jobData.businessId,
         tenantId: jobData.tenantId,
         source,
+        url: '',
       } satisfies SourceScrapeJob,
     })),
   });
