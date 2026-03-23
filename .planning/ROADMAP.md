@@ -28,9 +28,15 @@ SiteForge is an AI-powered local business website platform that scrapes business
   6. Anti-bot detection triggers automatic retry with exponential backoff and rate limiting
   7. Scraped data is validated and normalized into consistent format before passing to AI
   8. Job queue persists retries and failures across server restarts
-  9. Dashboard shows real-time scrape status per business (pending, running, success, failed)
+  9. Dashboard shows realtime scrape status per business (pending, running, success, failed)
   10. PostgreSQL schema supports tenant-isolated data storage from day one
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 01-01-PLAN.md -- Wave 0: Shared foundation (test configs, base scraper class, Zod schemas, stealth context, BullMQ queue, PostgreSQL schema, status tracker)
+- [ ] 01-02-PLAN.md -- Wave 1: All 5 scrapers (Google Maps, Instagram, Facebook, Yelp, Google Reviews) + parallel orchestrator
+- [ ] 01-03-PLAN.md -- Wave 2: BullMQ job flows, retry logic, PostgreSQL tenant middleware, dashboard SSE endpoints
+- [ ] 01-04-PLAN.md -- Wave 3: Integration checkpoint (end-to-end verification)
 
 ### Phase 2: AI Content Pipeline
 **Goal**: AI selects highest-quality content and generates site copy from scraped data
@@ -98,7 +104,7 @@ SiteForge is an AI-powered local business website platform that scrapes business
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Scraping Infrastructure | 0/TBD | Not started | - |
+| 1. Scraping Infrastructure | 0/4 | Not started | - |
 | 2. AI Content Pipeline | 0/TBD | Not started | - |
 | 3. Preview Landing Pages | 0/TBD | Not started | - |
 | 4. Production Site | 0/TBD | Not started | - |
