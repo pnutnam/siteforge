@@ -122,13 +122,13 @@
 | PROD-02 | Phase 4 | Pending |
 | PROD-03 | Phase 4 | Pending |
 | PROD-04 | Phase 4 | Pending |
-| AUTH-01 | Phase 4 | Pending |
-| AUTH-02 | Phase 4 | Pending |
-| AUTH-03 | Phase 4 | Pending |
-| AUTH-04 | Phase 4 | Pending |
-| DNS-01 | Phase 5 | Pending |
-| DNS-02 | Phase 5 | Pending |
-| DNS-03 | Phase 5 | Pending |
+| AUTH-01 | Phase 5 | Pending |
+| AUTH-02 | Phase 5 | Pending |
+| AUTH-03 | Phase 5 | Pending |
+| AUTH-04 | Phase 5 | Pending |
+| DNS-01 | Phase 6 | Pending |
+| DNS-02 | Phase 6 | Pending |
+| DNS-03 | Phase 6 | Pending |
 | PIPELINE-01 | Phase 1 | Pending |
 | PIPELINE-02 | Phase 2 | Pending |
 | PIPELINE-03 | Phase 1 | Pending |
@@ -139,10 +139,10 @@
 | MONITOR-03 | Phase 1 | Pending |
 
 **Coverage:**
-- v1 requirements: 35 total
-- Mapped to phases: 35
-- Unmapped: 0 ✓
+- v1 requirements: 36 total
+- Mapped to phases: 36
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-23*
-*Last updated: 2026-03-23 after research synthesis*
+*Last updated: 2026-03-23 after roadmap creation*
