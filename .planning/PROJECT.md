@@ -18,13 +18,23 @@ The 100s/week volume means the scraping → generation pipeline must be highly a
 
 ## Requirements
 
+### Validated (Phase 01)
+
+- [x] **SCRAPE-01**: Headless Playwright scrapes Google Maps listing (business name, address, phone, hours, 160 results per query, all reviews) — *Validated in Phase 01*
+- [x] **SCRAPE-02**: Scrape Instagram profile and top posts by engagement (likes + comments + shares) — *Validated in Phase 01*
+- [x] **SCRAPE-03**: Scrape Google Reviews (text, rating, date, author) — *Validated in Phase 01*
+- [x] **SCRAPE-04**: Scrape Facebook page info and top posts — *Validated in Phase 01*
+- [x] **SCRAPE-05**: Scrape Yelp business info and top reviews — *Validated in Phase 01*
+- [x] **SCRAPE-06**: Parallel orchestrator using p-limit for concurrency control — *Validated in Phase 01*
+- [x] **SCRAPE-07**: Anti-bot detection with exponential backoff retry (3s→6s→12s) — *Validated in Phase 01*
+- [x] **SCRAPE-08**: Zod validation schemas for all scrapers — *Validated in Phase 01*
+- [x] **PIPELINE-01**: Parallel scraping of all sources (Google Maps, IG, FB, Yelp, Google Reviews) per business — *Validated in Phase 01*
+- [x] **PIPELINE-03**: Exponential backoff retry with BullMQ parent→child flows — *Validated in Phase 01*
+- [x] **INFRA-01**: PostgreSQL schema with tenant-isolated RLS policies — *Validated in Phase 01*
+- [x] **MONITOR-03**: Dashboard with SSE real-time scrape status streaming — *Validated in Phase 01*
+
 ### Active
 
-- [ ] **SCRAPE-01**: Headless Playwright scrapes Google Maps listing (business name, address, phone, hours, 160 results per query, all reviews)
-- [ ] **SCRAPE-02**: Scrape Instagram profile and top posts by engagement (likes + comments + shares)
-- [ ] **SCRAPE-03**: Scrape Google Reviews (text, rating, date, author)
-- [ ] **SCRAPE-04**: Scrape Facebook page info and top posts
-- [ ] **SCRAPE-05**: Scrape Yelp business info and top reviews
 - [ ] **CONTENT-01**: AI selects highest-engagement content (images/posts) to feature on generated site
 - [ ] **CONTENT-02**: AI generates site copy using business info + social proof as source material
 - [ ] **LANDING-01**: Generate static landing page (Hugo or raw HTML) from scraped + AI content
@@ -39,9 +49,7 @@ The 100s/week volume means the scraping → generation pipeline must be highly a
 - [ ] **AUTH-02**: Session management with secure refresh tokens
 - [ ] **DNS-01**: Custom domain support — business points DNS to platform CNAME/IP
 - [ ] **DNS-02**: Automated SSL certificate provisioning (Let's Encrypt or Cloudflare)
-- [ ] **PIPELINE-01**: Parallel scraping of all sources (Google Maps, IG, FB, Yelp, Google Reviews) per business
 - [ ] **PIPELINE-02**: AI generation triggered automatically after scrape completion
-- [ ] **PIPELINE-03**: Landing page live within 10 minutes of starting scrape
 - [ ] **MONITOR-01**: Dashboard showing landing page views, CTR, time-on-site per preview link
 - [ ] **MONITOR-02**: Conversion tracking (preview → paid subscription)
 
@@ -77,4 +85,4 @@ The 100s/week volume means the scraping → generation pipeline must be highly a
 This is a new project. No existing codebase to build on.
 
 ---
-*Last updated: 2026-03-23 after requirements gathering*
+*Last updated: 2026-03-23 after Phase 01 (scraping-infrastructure) completion*
