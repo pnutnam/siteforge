@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "@ruvector/ruvllm": "^2.5.2",
+    "bullmq": "^5.71.0",
+    "drizzle-orm": "^0.45.1",
+    "ioredis": "^5.10.1",
+    "pg": "^8.20.0",
+    "ruvector": "^0.2.12"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.1"
+  }
+}

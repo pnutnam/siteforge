@@ -103,9 +103,10 @@ export function subscribeToScrapeEvents(
     scrapeQueueEvents.on('active', ({ jobId, name }) => {
       const source = name as SourceType;
       if (['google_maps', 'instagram', 'facebook', 'yelp', 'google_reviews'].includes(source)) {
+        const currentStatus = getScrapeStatus(businessId, tenantId);
         updateSourceStatus(businessId, tenantId, source, {
           status: 'in_progress',
-          attempts: (status.sources[source]?.attempts || 0) + 1,
+          attempts: (currentStatus?.sources[source]?.attempts || 0) + 1,
         });
       }
     })
