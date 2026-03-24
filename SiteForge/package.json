@@ -1,0 +1,26 @@
+{
+  "name": "siteforge",
+  "version": "0.1.0",
+  "description": "AI-powered local business website engine",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.80.0",
+    "@faker-js/faker": "^9.9.0",
+    "@ruvector/ruvllm": "^2.5.2",
+    "bullmq": "^5.71.0",
+    "drizzle-orm": "^0.45.1",
+    "ioredis": "^5.10.1",
+    "p-limit": "^7.3.0",
+    "pg": "^8.20.0",
+    "playwright-extra": "^4.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "ruvector": "^0.2.12"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.5.0",
+    "@types/pg": "^8.20.0",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.1"
+  }
+}
