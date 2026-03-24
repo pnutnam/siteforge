@@ -146,6 +146,25 @@ export const generatedTestimonials = pgTable('generated_testimonials', {
   index('generated_testimonials_business_idx').on(table.businessId),
 ]);
 
+export const previewLinks = pgTable('preview_links', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  tenantId: uuid('tenant_id').notNull(),
+  businessId: uuid('business_id').notNull().references(() => businesses.id),
+  urlHash: text('url_hash').notNull().unique(),  // The {hash} in biz-{hash}.preview.siteforge.io
+  s3Key: text('s3_key').notNull(),  // S3 object key for this preview
+  status: text('status').notNull().default('active'),  // active | expired | claimed
+  expiresAt: timestamp('expires_at').notNull(),  // 30 days from creation
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  viewedAt: timestamp('viewed_at'),  // First view timestamp
+  viewCount: text('view_count').notNull().default('0'),  // Total views
+  claimedAt: timestamp('claimed_at'),  // When business owner claimed
+}, (table) => [
+  index('preview_links_tenant_idx').on(table.tenantId),
+  index('preview_links_business_idx').on(table.businessId),
+  index('preview_links_url_hash_idx').on(table.urlHash),
+  index('preview_links_expires_at_idx').on(table.expiresAt),
+]);
+
 export async function withTenant<T>(
   tenantId: string,
   pool: { connect(): Promise<{ query(sql: string, params?: unknown[]): Promise<unknown>; release(): void }> },
