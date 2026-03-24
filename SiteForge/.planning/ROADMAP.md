@@ -69,7 +69,12 @@ Plans:
   6. Dashboard shows landing page views, CTR, and time-on-site per preview link
   7. Conversion events (preview link sent, preview viewed, conversion to paid) are tracked
   8. S3 bucket uses per-tenant key prefix isolation for security
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 03-01-PLAN.md -- Wave 1: S3 storage, Cloudflare CDN routing, preview URL system, per-tenant key isolation
+- [ ] 03-02-PLAN.md -- Wave 2: Astro build system, templates, JSON compilation, S3 upload trigger
+- [ ] 03-03-PLAN.md -- Wave 3: Dashboard email composer, analytics tracking, conversion funnel, claim form
 
 ### Phase 4: Production Site
 **Goal**: Business owners can claim preview and set up their production site with WYSIWYG editing
@@ -112,7 +117,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Scraping Infrastructure | 5/5 | Complete | 2026-03-23 |
 | 2. AI Content Pipeline | 3/3 | Complete | 2026-03-24 |
-| 3. Preview Landing Pages | 0/TBD | Not started | - |
+| 3. Preview Landing Pages | 0/3 | Not started | - |
 | 4. Production Site | 0/TBD | Not started | - |
 | 5. Authentication & Security | 0/TBD | Not started | - |
 | 6. DNS & Custom Domains | 0/TBD | Not started | - |
@@ -135,4 +140,4 @@ Plans:
 ---
 
 *Requirements defined: 2026-03-23*
-*Last updated: 2026-03-23 after Phase 2 planning*
+*Last updated: 2026-03-24 after Phase 3 planning*
