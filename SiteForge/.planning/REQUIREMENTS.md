@@ -28,8 +28,8 @@
 - [ ] **PREVIEW-01**: Generate static landing page (Astro) from scraped + AI content
 - [x] **PREVIEW-02**: Serve landing pages from S3 + Cloudflare CDN (sub-50ms global delivery)
 - [x] **PREVIEW-03**: Generate unique preview URL for each landing page (e.g. `biz-{hash}.preview.siteforge.io`)
-- [ ] **PREVIEW-04**: Email or SMS landing page link to business owner via sales agent
-- [ ] **PREVIEW-05**: Preview link expiration mechanism (conversion urgency)
+- [x] **PREVIEW-04**: Email or SMS landing page link to business owner via sales agent
+- [x] **PREVIEW-05**: Preview link expiration mechanism (conversion urgency)
 
 ### Production Sites
 
@@ -61,8 +61,8 @@
 
 ### Monitoring & Analytics
 
-- [ ] **MONITOR-01**: Dashboard showing landing page views, CTR, time-on-site per preview link
-- [ ] **MONITOR-02**: Conversion tracking (preview → paid subscription)
+- [x] **MONITOR-01**: Dashboard showing landing page views, CTR, time-on-site per preview link
+- [x] **MONITOR-02**: Conversion tracking (preview → paid subscription)
 - [x] **MONITOR-03**: Scraping pipeline success/failure monitoring
 
 ## v2 Requirements
@@ -116,8 +116,8 @@
 | PREVIEW-01 | Phase 3 | Pending |
 | PREVIEW-02 | Phase 3 | Complete |
 | PREVIEW-03 | Phase 3 | Complete |
-| PREVIEW-04 | Phase 3 | Pending |
-| PREVIEW-05 | Phase 3 | Pending |
+| PREVIEW-04 | Phase 3 | Complete |
+| PREVIEW-05 | Phase 3 | Complete |
 | PROD-01 | Phase 4 | Pending |
 | PROD-02 | Phase 4 | Pending |
 | PROD-03 | Phase 4 | Pending |
@@ -134,8 +134,8 @@
 | PIPELINE-03 | Phase 1 | Complete |
 | INFRA-01 | Phase 1 | Complete |
 | INFRA-02 | Phase 3 | Complete |
-| MONITOR-01 | Phase 3 | Pending |
-| MONITOR-02 | Phase 3 | Pending |
+| MONITOR-01 | Phase 3 | Complete |
+| MONITOR-02 | Phase 3 | Complete |
 | MONITOR-03 | Phase 1 | Complete |
 
 **Coverage:**
