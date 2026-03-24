@@ -13,6 +13,8 @@ import { spawn } from 'child_process';
 import { readFileSync, readdirSync, rmSync } from 'fs';
 import { join } from 'path';
 
+const BUILD_TIME_THRESHOLD_MS = 5 * 60 * 1000; // 5 minutes
+
 export interface BuildOptions {
   businessId: string;
   tenantId: string;
@@ -76,10 +78,17 @@ export async function buildPreview(options: BuildOptions): Promise<BuildResult> 
   // Cleanup temp data
   rmSync(dataDir, { recursive: true, force: true });
 
+  const buildTimeMs = Date.now() - startTime;
+
+  // Warn if build exceeds 5-minute threshold
+  if (buildTimeMs > BUILD_TIME_THRESHOLD_MS) {
+    console.warn(`[Builder] Build time ${buildTimeMs}ms exceeds 5-minute threshold (${BUILD_TIME_THRESHOLD_MS}ms)`);
+  }
+
   return {
     previewUrl,
     s3Key,
-    buildTimeMs: Date.now() - startTime,
+    buildTimeMs,
   };
 }
 
