@@ -75,7 +75,7 @@ Plans:
 - [x] 03-01-PLAN.md -- Wave 1: S3 storage, Cloudflare CDN routing, preview URL system, per-tenant key isolation
 - [x] 03-02-PLAN.md -- Wave 2: Astro build system, templates, JSON compilation, S3 upload trigger
 - [x] 03-03-PLAN.md -- Wave 3: Dashboard email composer, analytics tracking, conversion funnel, claim form
-- [ ] 03-04-PLAN.md -- Gap closure: SendGrid email sender integration (PREVIEW-04 blocker)
+- [x] 03-04-PLAN.md -- Gap closure: SendGrid email sender integration (PREVIEW-04 blocker)
 - [ ] 03-05-PLAN.md -- Gap closure: 5-minute build time threshold enforcement (PREVIEW-01)
 
 ### Phase 4: Production Site
@@ -119,7 +119,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Scraping Infrastructure | 5/5 | Complete | 2026-03-23 |
 | 2. AI Content Pipeline | 3/3 | Complete | 2026-03-24 |
-| 3. Preview Landing Pages | 3/5 | In Progress |  |
+| 3. Preview Landing Pages | 4/5 | In Progress |  |
 | 4. Production Site | 0/TBD | Not started | - |
 | 5. Authentication & Security | 0/TBD | Not started | - |
 | 6. DNS & Custom Domains | 0/TBD | Not started | - |
