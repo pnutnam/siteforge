@@ -7,7 +7,7 @@ SiteForge is an AI-powered local business website platform that scrapes business
 ## Phases
 
 - [P] **Phase 1: Scraping Infrastructure** - Reliable data extraction from all sources
-- [ ] **Phase 2: AI Content Pipeline** - AI selects and generates site content
+- [P] **Phase 2: AI Content Pipeline** - AI selects and generates site content
 - [ ] **Phase 3: Preview Landing Pages** - Sales-ready preview links for cold outreach
 - [ ] **Phase 4: Production Site** - Live sites with WYSIWYG editing for customers
 - [ ] **Phase 5: Authentication & Security** - TOTP 2FA and tenant isolation
@@ -54,7 +54,7 @@ Plans:
 Plans:
 - [x] 02-01-PLAN.md -- Wave 1: Engagement scoring + quality filters + template variables schema
 - [x] 02-02-PLAN.md -- Wave 2: AI quality classifier + testimonial selection + copy generation
-- [ ] 02-03-PLAN.md -- Wave 3: BullMQ AI pipeline orchestrator + integration checkpoint
+- [x] 02-03-PLAN.md -- Wave 3: BullMQ AI pipeline orchestrator + integration checkpoint
 
 ### Phase 3: Preview Landing Pages
 **Goal**: Sales agents can generate and send preview links to business owners for cold outreach
@@ -111,7 +111,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Scraping Infrastructure | 5/5 | Complete | 2026-03-23 |
-| 2. AI Content Pipeline | 2/3 | In Progress | - |
+| 2. AI Content Pipeline | 3/3 | Complete | 2026-03-24 |
 | 3. Preview Landing Pages | 0/TBD | Not started | - |
 | 4. Production Site | 0/TBD | Not started | - |
 | 5. Authentication & Security | 0/TBD | Not started | - |
