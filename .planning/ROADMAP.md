@@ -49,7 +49,12 @@ Plans:
   3. AI generates site copy using business info and social proof as source material
   4. AI maps all scraped data to template variables without data loss
   5. Landing page is generated and live within 10 minutes of scrape completion
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 02-01-PLAN.md -- Wave 1: Engagement scoring + quality filters + template variables schema
+- [ ] 02-02-PLAN.md -- Wave 2: AI quality classifier + testimonial selection + copy generation
+- [ ] 02-03-PLAN.md -- Wave 3: BullMQ AI pipeline orchestrator + integration checkpoint
 
 ### Phase 3: Preview Landing Pages
 **Goal**: Sales agents can generate and send preview links to business owners for cold outreach
@@ -106,7 +111,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Scraping Infrastructure | 3/5 | In Progress|  |
-| 2. AI Content Pipeline | 0/TBD | Not started | - |
+| 2. AI Content Pipeline | 0/3 | Not started | - |
 | 3. Preview Landing Pages | 0/TBD | Not started | - |
 | 4. Production Site | 0/TBD | Not started | - |
 | 5. Authentication & Security | 0/TBD | Not started | - |
@@ -130,4 +135,4 @@ Plans:
 ---
 
 *Requirements defined: 2026-03-23*
-*Last updated: 2026-03-23 after gap closure planning*
+*Last updated: 2026-03-23 after Phase 2 planning*
