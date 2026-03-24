@@ -39,8 +39,6 @@ export async function composeEmailPreview(options: ComposeEmailOptions): Promise
 export async function sendPreviewEmail(options: ComposeEmailOptions): Promise<{ success: boolean; messageId: string }> {
   const { subject, body } = await generateEmailCopy(options);
 
-  // TODO: Integrate with actual email provider (SendGrid/AWS SES/etc)
-  // For now, this is a stub that logs
   const result = await sendEmail({
     to: options.toEmail,
     from: options.agentEmail,
