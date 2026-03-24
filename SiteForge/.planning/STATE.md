@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 03-01 plan - preview infrastructure
-last_updated: "2026-03-24T20:46:17.333Z"
+stopped_at: Completed 03-02 plan - Astro preview pages
+last_updated: "2026-03-24T21:00:00.000Z"
 progress:
   total_phases: 6
   completed_phases: 2
   total_plans: 12
-  completed_plans: 10
+  completed_plans: 12
 ---
 
 # Project State
@@ -23,8 +23,8 @@ See: .planning/PROJECT.md (updated 2026-03-23)
 
 ## Current Position
 
-Phase: 03 (preview-landing-pages) — EXECUTING
-Plan: 1 of 3
+Phase: 03 (preview-landing-pages) — COMPLETED
+Plan: 2 of 3 completed
 
 ## Performance Metrics
 
@@ -56,6 +56,7 @@ Plan: 1 of 3
 | Phase 02 P03 | 4 | 4 tasks | 7 files |
 | Phase 02 P04 | 46 | 1 tasks | 1 files |
 | Phase 03 P01 | 163 | 4 tasks | 9 files |
+| Phase 03 P02 | 5 | 3 tasks | 16 files |
 
 ## Accumulated Context
 
@@ -75,6 +76,7 @@ Recent decisions affecting current work:
 - [Phase 03]: S3 key format {tenantId}/{businessId}/{contentHash}/index.html for per-tenant isolation
 - [Phase 03]: Cloudflare KV stores biz-{hash} -> {s3Key, tenantId, businessId, expiresAt} mapping
 - [Phase 03]: 30-day default expiration for preview links
+- [Phase 03-02]: Category inference from business name (restaurant/salon/general) rather than explicit category field
 
 ### Pending Todos
 
@@ -91,6 +93,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-24T20:46:17.330Z
-Stopped at: Completed 03-01 plan - preview infrastructure
+Last session: 2026-03-24T21:00:00.000Z
+Stopped at: Completed 03-02 plan - Astro preview pages
 Resume file: None
