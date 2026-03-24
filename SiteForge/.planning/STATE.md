@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Phase 3 context gathered
-last_updated: "2026-03-24T20:17:33.177Z"
+stopped_at: Completed 03-01 plan - preview infrastructure
+last_updated: "2026-03-24T20:46:17.333Z"
 progress:
   total_phases: 6
   completed_phases: 2
-  total_plans: 9
-  completed_plans: 9
+  total_plans: 12
+  completed_plans: 10
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-23)
 
 **Core value:** Every local business deserves a website that sells itself using what's already working — their own social posts and reviews.
-**Current focus:** Phase 02 — ai-content-pipeline
+**Current focus:** Phase 03 — preview-landing-pages
 
 ## Current Position
 
-Phase: 02 (ai-content-pipeline) — COMPLETE
-Plan: 4 of 4
+Phase: 03 (preview-landing-pages) — EXECUTING
+Plan: 1 of 3
 
 ## Performance Metrics
 
@@ -55,6 +55,7 @@ Plan: 4 of 4
 | Phase 02 P02 | 9 | 3 tasks | 9 files |
 | Phase 02 P03 | 4 | 4 tasks | 7 files |
 | Phase 02 P04 | 46 | 1 tasks | 1 files |
+| Phase 03 P01 | 163 | 4 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,9 @@ Recent decisions affecting current work:
 - [Phase 02]: Parallel children (image-select + copy-write) per user decision for speed
 - [Phase 02]: Query Instagram/Facebook/Yelp raw tables per actual schema
 - [Phase 02]: Return null on copy generation failure for partial pipeline success
+- [Phase 03]: S3 key format {tenantId}/{businessId}/{contentHash}/index.html for per-tenant isolation
+- [Phase 03]: Cloudflare KV stores biz-{hash} -> {s3Key, tenantId, businessId, expiresAt} mapping
+- [Phase 03]: 30-day default expiration for preview links
 
 ### Pending Todos
 
@@ -87,6 +91,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-24T20:17:33.173Z
-Stopped at: Phase 3 context gathered
-Resume file: .planning/phases/03-preview-landing-pages/03-CONTEXT.md
+Last session: 2026-03-24T20:46:17.330Z
+Stopped at: Completed 03-01 plan - preview infrastructure
+Resume file: None

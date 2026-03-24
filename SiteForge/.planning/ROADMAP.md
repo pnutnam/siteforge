@@ -117,7 +117,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Scraping Infrastructure | 5/5 | Complete | 2026-03-23 |
 | 2. AI Content Pipeline | 3/3 | Complete | 2026-03-24 |
-| 3. Preview Landing Pages | 0/3 | Not started | - |
+| 3. Preview Landing Pages | 1/3 | In Progress|  |
 | 4. Production Site | 0/TBD | Not started | - |
 | 5. Authentication & Security | 0/TBD | Not started | - |
 | 6. DNS & Custom Domains | 0/TBD | Not started | - |
