@@ -1,0 +1,38 @@
+---
+interface Props {
+  expiresAt: string;
+}
+
+const { expiresAt } = Astro.props;
+const expirationDate = new Date(expiresAt);
+const daysRemaining = Math.ceil((expirationDate.getTime() - Date.now()) / (24 * 60 * 60 * 1000));
+const urgencyClass = daysRemaining <= 7 ? 'urgent' : daysRemaining <= 14 ? 'warning' : 'normal';
+---
+
+<div class={`expiration-banner ${urgencyClass}`}>
+  <div class="container">
+    <p>
+      {daysRemaining <= 0 ? (
+        <span>This preview has expired.</span>
+      ) : (
+        <span>This preview expires in <strong>{daysRemaining} day{daysRemaining !== 1 ? 's' : ''}</strong>.</span>
+      )}
+      <a href="#">Claim this page</a> to keep it live.
+    </p>
+  </div>
+</div>
+
+<style>
+  .expiration-banner {
+    padding: 0.75rem 0;
+    font-size: 0.875rem;
+    text-align: center;
+  }
+  .expiration-banner.normal { background: #fef3c7; color: #92400e; }
+  .expiration-banner.warning { background: #fed7aa; color: #c2410c; }
+  .expiration-banner.urgent { background: #fee2e2; color: #dc2626; }
+  .expiration-banner a { font-weight: 600; }
+  .expiration-banner.normal a { color: #b45309; }
+  .expiration-banner.warning a { color: #ea580c; }
+  .expiration-banner.urgent a { color: #b91c1c; }
+</style>

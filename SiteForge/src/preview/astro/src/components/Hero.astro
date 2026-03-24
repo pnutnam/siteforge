@@ -1,0 +1,44 @@
+---
+interface Props {
+  headline: string;
+  businessName: string;
+  bestImage?: { url: string; altText?: string };
+}
+
+const { headline, businessName, bestImage } = Astro.props;
+---
+
+<section class="hero">
+  {bestImage ? (
+    <div class="hero-image">
+      <img src={bestImage.url} alt={bestImage.altText ?? businessName} />
+      <div class="hero-overlay">
+        <h1 class="hero-headline">{headline}</h1>
+      </div>
+    </div>
+  ) : (
+    <div class="hero-placeholder">
+      <h1 class="hero-headline">{headline}</h1>
+    </div>
+  )}
+</section>
+
+<style>
+  .hero { position: relative; width: 100%; }
+  .hero-image { position: relative; width: 100%; height: 60vh; min-height: 400px; overflow: hidden; }
+  .hero-image img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+    display: flex; align-items: flex-end;
+  }
+  .hero-headline {
+    color: white; font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700; padding: 2rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  .hero-placeholder {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 4rem 2rem;
+  }
+</style>

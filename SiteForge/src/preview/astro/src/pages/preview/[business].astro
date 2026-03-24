@@ -1,0 +1,104 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import About from '../../components/About.astro';
+import Gallery from '../../components/Gallery.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
+import ExpirationBanner from '../../components/ExpirationBanner.astro';
+
+// Data is loaded at build time from JSON files
+// The build script compiles AI output to JSON before running Astro build
+
+interface Props {
+  business: {
+    name: string;
+    category: 'restaurant' | 'salon' | 'general';
+    address?: string;
+    phone?: string;
+    hours?: Record<string, string>;
+  };
+  content: {
+    headline: string;
+    tagline: string;
+    about: string;
+    images: Array<{
+      url: string;
+      source: 'instagram' | 'facebook' | 'yelp';
+      caption?: string;
+      altText?: string;
+    }>;
+    testimonials: Array<{
+      author: string;
+      text: string;
+      rating: number;
+    }>;
+  };
+  meta: {
+    generatedAt: string;
+    businessId: string;
+    tenantId: string;
+  };
+  expiresAt: string;
+}
+
+// Load from JSON at build time
+export function getStaticPaths() {
+  const dataDir = './src/data/businesses';
+  // In production, data is pre-compiled by builder.ts
+  // Astro's glob import reads pre-generated JSON files
+  return []; // Dynamic paths provided by build process
+}
+
+const { business, content, meta, expiresAt } = Astro.props;
+
+// Section order per category:
+// - Restaurant: photos/gallery first, then reviews, about, contact
+// - Salon: services + gallery first, then reviews, about, contact
+// - General: about first, then reviews, gallery, contact
+---
+
+<Layout
+  title={`${business.name} - Preview`}
+  businessName={business.name}
+  category={business.category}
+  expiresAt={expiresAt}
+  metaDescription={content.tagline}
+>
+  <ExpirationBanner expiresAt={expiresAt} />
+
+  <main>
+    <Hero
+      headline={content.headline}
+      businessName={business.name}
+      bestImage={content.images[0]}
+    />
+
+    {business.category === 'restaurant' && (
+      <>
+        <Gallery images={content.images} />
+        <Testimonials reviews={content.testimonials} />
+        <About text={content.about} phone={business.phone} address={business.address} hours={business.hours} />
+        <ContactCTA phone={business.phone} address={business.address} hours={business.hours} />
+      </>
+    )}
+
+    {business.category === 'salon' && (
+      <>
+        <Gallery images={content.images} />
+        <About text={content.about} phone={business.phone} address={business.address} hours={business.hours} />
+        <Testimonials reviews={content.testimonials} />
+        <ContactCTA phone={business.phone} address={business.address} hours={business.hours} />
+      </>
+    )}
+
+    {business.category === 'general' && (
+      <>
+        <About text={content.about} phone={business.phone} address={business.address} hours={business.hours} />
+        <Testimonials reviews={content.testimonials} />
+        <Gallery images={content.images} />
+        <ContactCTA phone={business.phone} address={business.address} hours={business.hours} />
+      </>
+    )}
+  </main>
+</Layout>

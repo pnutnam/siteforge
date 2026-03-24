@@ -1,0 +1,48 @@
+---
+interface Props {
+  text: string;
+  phone?: string;
+  address?: string;
+  hours?: Record<string, string>;
+}
+
+const { text, phone, address, hours } = Astro.props;
+---
+
+<section class="about">
+  <div class="container">
+    <h2>About Us</h2>
+    <div class="about-content">
+      <p class="about-text">{text}</p>
+      {(phone || address || hours) && (
+        <div class="about-info">
+          {address && <p class="info-item"><strong>Address:</strong> {address}</p>}
+          {phone && <p class="info-item"><strong>Phone:</strong> <a href={`tel:${phone}`}>{phone}</a></p>}
+          {hours && Object.keys(hours).length > 0 && (
+            <div class="hours">
+              <strong>Hours:</strong>
+              <ul>
+                {Object.entries(hours).map(([day, hours_str]) => (
+                  <li><span>{day}:</span> {hours_str}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .about { padding: 4rem 0; }
+  .about h2 { font-size: 2rem; margin-bottom: 1.5rem; }
+  .about-content { display: grid; gap: 2rem; }
+  @media (min-width: 768px) {
+    .about-content { grid-template-columns: 2fr 1fr; }
+  }
+  .about-text { line-height: 1.8; }
+  .info-item { margin-bottom: 0.5rem; }
+  .hours ul { list-style: none; margin-top: 0.5rem; }
+  .hours li { display: flex; justify-content: space-between; max-width: 200px; }
+</style>

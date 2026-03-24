@@ -1,0 +1,44 @@
+---
+interface Props {
+  reviews: Array<{
+    author: string;
+    text: string;
+    rating: number;
+  }>;
+}
+
+const { reviews } = Astro.props;
+---
+
+<section class="testimonials">
+  <div class="container">
+    <h2>What People Say</h2>
+    <div class="testimonials-grid">
+      {reviews.slice(0, 3).map(review => (
+        <div class="testimonial-card">
+          <div class="stars">{'★'.repeat(review.rating)}</div>
+          <p class="review-text">"{review.text}"</p>
+          <p class="review-author">— {review.author}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials { padding: 4rem 0; }
+  .testimonials h2 { font-size: 2rem; margin-bottom: 1.5rem; text-align: center; }
+  .testimonials-grid {
+    display: grid; gap: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .testimonials-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  .testimonial-card {
+    background: white; border-radius: 12px; padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  .stars { color: #fbbf24; font-size: 1.25rem; margin-bottom: 0.75rem; }
+  .review-text { font-style: italic; color: #374151; margin-bottom: 1rem; line-height: 1.6; }
+  .review-author { font-weight: 600; color: #6b7280; font-size: 0.875rem; }
+</style>
