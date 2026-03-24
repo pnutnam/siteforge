@@ -52,8 +52,8 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 02-01-PLAN.md -- Wave 1: Engagement scoring + quality filters + template variables schema
-- [ ] 02-02-PLAN.md -- Wave 2: AI quality classifier + testimonial selection + copy generation
+- [x] 02-01-PLAN.md -- Wave 1: Engagement scoring + quality filters + template variables schema
+- [x] 02-02-PLAN.md -- Wave 2: AI quality classifier + testimonial selection + copy generation
 - [ ] 02-03-PLAN.md -- Wave 3: BullMQ AI pipeline orchestrator + integration checkpoint
 
 ### Phase 3: Preview Landing Pages
@@ -110,8 +110,8 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Scraping Infrastructure | 3/5 | In Progress|  |
-| 2. AI Content Pipeline | 0/3 | Not started | - |
+| 1. Scraping Infrastructure | 5/5 | Complete | 2026-03-23 |
+| 2. AI Content Pipeline | 2/3 | In Progress | - |
 | 3. Preview Landing Pages | 0/TBD | Not started | - |
 | 4. Production Site | 0/TBD | Not started | - |
 | 5. Authentication & Security | 0/TBD | Not started | - |
