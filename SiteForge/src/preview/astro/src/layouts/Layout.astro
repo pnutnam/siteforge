@@ -1,0 +1,43 @@
+---
+interface Props {
+  title: string;
+  businessName: string;
+  category: 'restaurant' | 'salon' | 'general';
+  expiresAt: string;
+  metaDescription?: string;
+}
+
+const { title, businessName, category, expiresAt, metaDescription } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={metaDescription ?? `${businessName} - Preview landing page`} />
+  <title>{title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-primary: #2563eb;
+      --color-text: #1f2937;
+      --color-bg: #ffffff;
+      --color-muted: #6b7280;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 1.6;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+  </style>
+</head>
+<body>
+  <slot />
+</body>
+</html>
