@@ -165,6 +165,22 @@ export const previewLinks = pgTable('preview_links', {
   index('preview_links_expires_at_idx').on(table.expiresAt),
 ]);
 
+export const analyticsEvents = pgTable('analytics_events', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  tenantId: uuid('tenant_id').notNull(),
+  businessId: uuid('business_id').notNull(),
+  previewLinkId: uuid('preview_link_id').notNull().references(() => previewLinks.id),
+  eventType: text('event_type').notNull(),
+  timestamp: timestamp('timestamp').defaultNow().notNull(),
+  metadata: jsonb('metadata'),
+}, (table) => [
+  index('analytics_events_tenant_idx').on(table.tenantId),
+  index('analytics_events_business_idx').on(table.businessId),
+  index('analytics_events_preview_link_idx').on(table.previewLinkId),
+  index('analytics_events_type_idx').on(table.eventType),
+  index('analytics_events_timestamp_idx').on(table.timestamp),
+]);
+
 export async function withTenant<T>(
   tenantId: string,
   pool: { connect(): Promise<{ query(sql: string, params?: unknown[]): Promise<unknown>; release(): void }> },
