@@ -46,7 +46,7 @@ A platform that discovers local businesses without websites, auto-generates high
 - [ ] **AUTH-01**: TOTP 2FA — partial: setup works, verify endpoint needs rate limiting
 - [ ] **AUTH-02**: Session management — partial: refresh tokens work, rate limiting gap
 - [ ] **AUTH-03**: Rate limiting on TOTP — ✅ satisfied: already integrated (false positive in audit)
-- [ ] **AUTH-04**: Multi-tenant ownership validation — partial: helper not enforced
+- [ ] **AUTH-04**: Multi-tenant ownership validation — ✅ satisfied: requireOwnership wired in dashboard feedback routes
 
 ### Out of Scope
 
@@ -63,7 +63,7 @@ A platform that discovers local businesses without websites, auto-generates high
 **Priority work:**
 1. ~~Verify Phase 4 (Production Site)~~ — DONE: gaps found, PROD-01/02 fixes committed
 2. ~~Fix AUTH-03: wire rate limiting into verify-2fa endpoint~~ — FALSE POSITIVE: already integrated
-3. Fix AUTH-04: enforce ownership validation in sensitive API routes
+3. ~~Fix AUTH-04: enforce ownership validation in sensitive API routes~~ — DONE: requireOwnership wired in dashboard feedback routes (commit 62ecc45)
 4. ~~Implement Phase 4 content lookup~~ — DONE: `getProductionContent()` + `getBusinessByDomain()` implemented in `[domain]/page.tsx`
 5. ~~Wire mobile accordion mutation callbacks in editor/page.tsx~~ — DONE: handleSectionUpdate/Reorder wired; image replace deferred (S3)
 

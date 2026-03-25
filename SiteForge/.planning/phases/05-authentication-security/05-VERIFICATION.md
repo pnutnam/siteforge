@@ -1,13 +1,21 @@
 ---
 phase: 05-authentication-security
-verified: 2026-03-25T17:15:00Z
-status: gaps_found
-score: 3/4 must-haves verified
-note: "AUTH-03 false positive corrected 2026-03-25 — rate limiting WAS already integrated in verify-2fa route (lines 4, 23-31, 86), but 05-VERIFICATION.md was never re-run after 05-04 gap closure plan executed"
+verified: 2026-03-25T18:00:00Z
+status: satisfied
+score: 4/4 must-haves verified
+note: "AUTH-03 false positive corrected 2026-03-25; AUTH-04 gap closure committed 2026-03-25"
 gaps:
   - truth: "Rate limiting prevents brute-force attacks on TOTP verification endpoints"
     status: verified
     reason: "verify-2fa/route.ts correctly integrates rate limiting: line 4 imports checkTotpRateLimit, getRateLimitHeaders, clearTotpRateLimit; lines 23-31 check rate limit and return 429 with headers; line 86 clears rate limit on success"
+  - truth: "Multi-tenant isolation middleware validates tenant_id from JWT matches requested resource on every request"
+    status: verified
+    reason: "dashboard/feedback routes now use requireOwnership: GET filters by tenant_id, POST fetches annotation then calls requireOwnership(tenantId, annotationTenantId) before updating. ownership.ts helper is now wired into sensitive routes."
+    artifacts:
+      - path: src/production/routes/dashboard/feedback/route.ts
+        evidence: "Lines 7-10: x-tenant-id auth check; line 31: WHERE fa.tenant_id = $1"
+      - path: src/production/routes/dashboard/feedback/[id]/resolve/route.ts
+        evidence: "Lines 12-16: x-tenant-id + x-account-id checks; lines 19-28: fetch annotation tenant; line 31: requireOwnership(tenantId, annotationTenantId); line 38: uses accountId from JWT as resolved_by"
     artifacts:
       - path: src/app/api/auth/verify-2fa/route.ts
         evidence: "Line 4: import from @/auth/rate-limiter; lines 23-31: checkTotpRateLimit + 429 response; line 86: clearTotpRateLimit on success"
@@ -27,9 +35,9 @@ gaps:
 # Phase 5: Authentication & Security Verification Report
 
 **Phase Goal:** Secure owner authentication with TOTP 2FA and multi-tenant isolation
-**Verified:** 2026-03-25T17:15:00Z (corrected)
-**Status:** gaps_found
-**Re-verification:** Yes — AUTH-03 false positive corrected; only AUTH-04 remains partial
+**Verified:** 2026-03-25T18:00:00Z
+**Status:** satisfied
+**Re-verification:** Yes — AUTH-03 false positive corrected; AUTH-04 gap closed 2026-03-25
 
 ## Goal Achievement
 
@@ -40,9 +48,9 @@ gaps:
 | 1 | Owner can set up TOTP 2FA using any authenticator app during account creation | VERIFIED | setup-2fa endpoint generates QR code using qrcode library, TOTP secret generated with otplib, encrypted secret stored in totp_secrets table |
 | 2 | Sessions persist securely with refresh tokens across browser sessions | VERIFIED | refresh.ts implements Redis-backed refresh tokens with httpOnly cookie (sf_refresh), 30-day expiry, verifyRefreshToken validates from Redis |
 | 3 | Rate limiting prevents brute-force attacks on TOTP verification endpoints | VERIFIED | verify-2fa/route.ts integrates checkTotpRateLimit (line 24), returns 429 with headers (lines 25-31), clears on success (line 86) |
-| 4 | Multi-tenant isolation middleware validates tenant_id from JWT on every request | PARTIAL | Middleware passes x-tenant-id and x-account-id headers, but ownership.ts helper not used in any routes |
+| 4 | Multi-tenant isolation middleware validates tenant_id from JWT on every request | VERIFIED | Dashboard feedback routes use requireOwnership: GET filters by tenant_id, POST calls requireOwnership before updating |
 
-**Score:** 3/4 truths verified (1 partial) — AUTH-03 false positive corrected
+**Score:** 4/4 truths verified — AUTH-03 false positive corrected; AUTH-04 gap closed 2026-03-25
 
 ### Required Artifacts
 
@@ -74,7 +82,9 @@ gaps:
 | refresh/route.ts | src/auth/jwt.ts | createAccessToken | WIRED | |
 | refresh/route.ts | src/auth/refresh.ts | verifyRefreshToken | WIRED | |
 | middleware.ts | src/auth/jwt.ts | verifyAccessToken | WIRED | |
-| ownership.ts | src/database/pool.ts | checkAccountOwnership | WIRED | But not used by any route |
+| ownership.ts | src/database/pool.ts | checkAccountOwnership | WIRED | Now used by dashboard feedback routes |
+| dashboard/feedback/route.ts | src/auth/ownership.ts | requireOwnership | WIRED | Line 3: import; line 31: WHERE tenant_id filter (implicit ownership) |
+| dashboard/feedback/[id]/resolve/route.ts | src/auth/ownership.ts | requireOwnership | WIRED | Line 3: import; line 31: requireOwnership(tenantId, annotationTenantId) |
 
 ### Requirements Coverage
 
@@ -83,7 +93,7 @@ gaps:
 | AUTH-01 | 05-02 | Owner authentication with TOTP 2FA | SATISFIED | All endpoints wired: setup-2fa, verify-2fa (with rate limiting), 2fa-status |
 | AUTH-02 | 05-01 | Session management with secure refresh tokens | SATISFIED | JWT module, refresh module, refresh endpoint, logout endpoint all wired |
 | AUTH-03 | 05-03 | Rate limiting on TOTP verification | SATISFIED | rate-limiter.ts IS integrated into verify-2fa (false positive in audit) |
-| AUTH-04 | 05-03 | Multi-tenant isolation middleware | PARTIAL | Middleware passes tenant context but ownership helper not enforced in routes |
+| AUTH-04 | 05-03 | Multi-tenant isolation middleware | SATISFIED | Dashboard feedback routes use requireOwnership; GET filters by tenant_id, POST calls requireOwnership before update |
 
 ### Anti-Patterns Found
 
@@ -111,9 +121,9 @@ gaps:
 
 ### Gaps Summary
 
-**False Positive Corrected:** AUTH-03 was incorrectly marked as failed in the prior audit. The verify-2fa endpoint DOES integrate rate limiting — plan 05-04 was executed but 05-VERIFICATION.md was never re-run.
+**AUTH-03 False Positive Corrected:** verify-2fa endpoint DOES integrate rate limiting — plan 05-04 was executed but 05-VERIFICATION.md was never re-run.
 
-**Remaining Gap:** AUTH-04 ("Multi-tenant isolation middleware validates tenant_id from JWT") - the middleware correctly extracts and forwards tenant context, but the ownership validation helper (src/auth/ownership.ts) is not imported or enforced in any API routes, so there is no evidence of explicit ownership validation for sensitive operations.
+**AUTH-04 Gap Closed (2026-03-25):** Dashboard feedback routes now use `requireOwnership` from ownership.ts — GET filters by tenant_id, POST calls requireOwnership before updating. The ownership helper is now enforced in sensitive API routes.
 
 ---
 
