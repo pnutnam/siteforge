@@ -1,5 +1,18 @@
 # Milestones
 
+## 1.1 Hardening (Shipped: 2026-03-25)
+
+**Phases completed:** 6 phases, 26 plans, 7 tasks
+
+**Key accomplishments:**
+
+- Fixed PROD-01: implemented `getBusinessByDomain()` and `getProductionContent()` in ISR page — ISR serving now functional
+- Fixed PROD-02: wired `handleSectionUpdate` and `handleSectionReorder` in editor/page.tsx — mobile editing persists changes
+- Corrected AUTH-03 false positive: rate limiting WAS integrated in verify-2fa endpoint (05-VERIFICATION.md updated)
+- Fixed AUTH-04: wired `requireOwnership` in dashboard feedback routes — GET filters by tenant_id, POST enforces ownership
+
+---
+
 ## 1.0 MVP (Shipped: 2026-03-25)
 
 **Phases completed:** 6 phases, 26 plans

@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Hardening
-status: in_progress
-stopped_at: Phase 4 verification complete — gaps found (PROD-01/02 ISR content lookup stubbed)
-last_updated: "2026-03-25T17:15:00.000Z"
+status: unknown
+stopped_at: v1.0 milestone archival complete
+last_updated: "2026-03-25T20:16:18.374Z"
 progress:
   total_phases: 6
   completed_phases: 6

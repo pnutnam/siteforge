@@ -8,25 +8,25 @@ A platform that discovers local businesses without websites, auto-generates high
 
 ## Current State
 
-**Milestone:** v1.0 MVP — shipped 2026-03-25
+**Milestone:** v1.1 Hardening — shipped 2026-03-25
 
-**What was built:**
+**What was built (v1.0 + v1.1):**
 - Scraping infrastructure: 5 parallel scrapers (Google Maps, Instagram, Facebook, Yelp, Google Reviews) with BullMQ job queue and PostgreSQL tenant isolation
 - AI content pipeline: engagement scoring, quality filtering, hybrid copy generation with testimonial selection
 - Preview landing pages: S3 + Cloudflare CDN hosting, unique `biz-{hash}.preview.siteforge.io` URLs, SendGrid email delivery, conversion analytics
-- Production site: Next.js + Payload CMS with Tiptap WYSIWYG editor, mobile editing, ISR + on-demand revalidation
+- Production site: Next.js + Payload CMS with Tiptap WYSIWYG editor, mobile accordion editing, ISR + on-demand revalidation
 - Authentication: JWT + TOTP 2FA, rate limiting, Redis-backed refresh tokens, tenant isolation middleware
 - DNS custom domains: CNAME validation via Cloudflare API, Cloudflare Origin SSL provisioning, hostname-based tenant resolution
+- Hardening: ISR content lookup fixed, mobile accordion wired, ownership validation enforced
 
-**Known tech debt (from v1.0 audit):**
-- Phase 4 (Production Site) never formally verified — PROD-01/02/03/04 unverified
-- AUTH-03: verify-2fa endpoint not wired to rate-limiter.ts
-- AUTH-04: ownership.ts helper not enforced in API routes
-- Phase 3: stale TODO comments in composer.ts (anti-pattern)
+**Known remaining tech debt:**
+- PREVIEW-01: build threshold warns only (landing page generation)
+- Image replace: S3 presigned URL flow not yet implemented (PROD-04 deferred)
+- Template picker: `onSelect` creates empty page, no template data loaded
 
 ## Requirements
 
-### Validated (v1.0)
+### Validated (v1.0 + v1.1)
 
 - [x] SCRAPE-01 through SCRAPE-08 (scraping infrastructure)
 - [x] CONTENT-01 through CONTENT-04 (AI content pipeline)
@@ -35,37 +35,38 @@ A platform that discovers local businesses without websites, auto-generates high
 - [x] PIPELINE-01, PIPELINE-02, PIPELINE-03 (pipeline orchestration)
 - [x] INFRA-01, INFRA-02 (infrastructure)
 - [x] MONITOR-01, MONITOR-02, MONITOR-03 (monitoring)
+- [x] PROD-01 (ISR serving + content lookup) — v1.1
+- [x] PROD-02 (mobile editing, partial) — v1.1
+- [x] PROD-03 (per-business isolation) — v1.0
+- [x] PROD-04 (ISR + CDN) — v1.0
+- [x] AUTH-03 (rate limiting) — v1.1 corrected
+- [x] AUTH-04 (ownership validation) — v1.1
 
-### Active (v1.1)
+### Active (v2.0)
 
 - [ ] **PREVIEW-01**: Generate static landing page — partial: build threshold warns only
-- [ ] **PROD-01**: Production site WYSIWYG editor — ✅ ISR serving + content lookup fixed (getBusinessByDomain + getProductionContent implemented)
-- [ ] **PROD-02**: Mobile editing — mostly fixed: section update/reorder wired; image replace deferred (S3)
-- [ ] **PROD-03**: Per-business isolation — ✅ satisfied: schema + RLS complete
-- [ ] **PROD-04**: Mobile-responsive editor — ✅ satisfied: ISR + CDN infrastructure complete
-- [ ] **AUTH-01**: TOTP 2FA — partial: setup works, verify endpoint needs rate limiting
+- [ ] **AUTH-01**: TOTP 2FA — partial: setup works, verify needs rate limiting
 - [ ] **AUTH-02**: Session management — partial: refresh tokens work, rate limiting gap
-- [ ] **AUTH-03**: Rate limiting on TOTP — ✅ satisfied: already integrated (false positive in audit)
-- [ ] **AUTH-04**: Multi-tenant ownership validation — ✅ satisfied: requireOwnership wired in dashboard feedback routes
+- [ ] **Payment**: Stripe integration — deferred to v2
+- [ ] **Image upload**: S3 presigned URLs for image replace — deferred
 
 ### Out of Scope
 
-- **Payment processing** — Stripe integration deferred to v2
 - **White-labeling** — Each business gets platform-hosted site
 - **Blog/CMS features beyond basic edits** — No posts, events, booking in v1
 - **Mobile native app** — Responsive web only
 - **Multi-location support** — One site per business in v1
 
-## Next Milestone: v1.1 Hardening
+## Next Milestone: v2.0
 
-**Goal:** Close v1.0 tech debt, verify Phase 4, complete auth integration
+**Goal:** Launch — first paying customers, Stripe billing, real data
 
 **Priority work:**
-1. ~~Verify Phase 4 (Production Site)~~ — DONE: gaps found, PROD-01/02 fixes committed
-2. ~~Fix AUTH-03: wire rate limiting into verify-2fa endpoint~~ — FALSE POSITIVE: already integrated
-3. ~~Fix AUTH-04: enforce ownership validation in sensitive API routes~~ — DONE: requireOwnership wired in dashboard feedback routes (commit 62ecc45)
-4. ~~Implement Phase 4 content lookup~~ — DONE: `getProductionContent()` + `getBusinessByDomain()` implemented in `[domain]/page.tsx`
-5. ~~Wire mobile accordion mutation callbacks in editor/page.tsx~~ — DONE: handleSectionUpdate/Reorder wired; image replace deferred (S3)
+1. Stripe payment integration ($50/mo subscription)
+2. PREVIEW-01: complete landing page generation from scraped data
+3. AUTH-01/02: wire rate limiting into verify-2fa + enforce in API routes
+4. Image upload: S3 presigned URLs for editor
+5. Template system: load templates, wire onSelect
 
 ## Key Decisions
 
@@ -76,13 +77,15 @@ A platform that discovers local businesses without websites, auto-generates high
 | Cloudflare Origin SSL (not Let's Encrypt) | Free, no ACME complexity | Validated v1.0 |
 | Top 20% by engagement for content selection | Filters low-quality, highlights winners | Validated v1.0 |
 | Opaque token for refresh tokens | Random 64-char hex, SHA256 hash in Redis | Validated v1.0 |
+| ISR for production site | 60s revalidation + on-demand CDN purge | Validated v1.1 |
 
 ## Context
 
-**v1.0 shipped:** 2026-03-25
+**v1.1 shipped:** 2026-03-25
 **Tech stack:** Next.js, Payload CMS, PostgreSQL, BullMQ, Redis, Cloudflare, S3, Playwright, Drizzle ORM
 **Codebase:** TypeScript, ~300+ files across 6 phases
+**GitHub:** https://github.com/pnutnam/siteforge
 
 ---
 
-*Last updated: 2026-03-25 after v1.0 milestone*
+*Last updated: 2026-03-25 after v1.1 milestone*
