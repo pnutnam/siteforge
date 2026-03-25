@@ -11,7 +11,7 @@ SiteForge is an AI-powered local business website platform that scrapes business
 - [ ] **Phase 3: Preview Landing Pages** - Sales-ready preview links for cold outreach
 - [ ] **Phase 4: Production Site** - Live sites with WYSIWYG editing for customers
 - [ ] **Phase 5: Authentication & Security** - TOTP 2FA and tenant isolation
-- [ ] **Phase 6: DNS & Custom Domains** - Custom domain support with auto-SSL
+- [x] **Phase 6: DNS & Custom Domains** - Custom domain support with auto-SSL (completed 2026-03-25)
 
 ## Phase Details
 
@@ -117,12 +117,13 @@ Plans:
   2. SSL certificate provisions automatically within 10 minutes of DNS change (via Let's Encrypt or Cloudflare Origin SSL)
   3. Tenant resolution correctly identifies business from custom hostname in middleware
   4. Custom domain routes to platform CNAME without port conflicts or redirect loops
-**Plans**: 3 plans
+**Plans**: 4 plans
 
 Plans:
 - [ ] 06-01-PLAN.md -- Wave 1: Database schema (custom_domains table) + DNS types + SSL provider interface
 - [ ] 06-02-PLAN.md -- Wave 2: CNAME validation via Cloudflare DNS API + Cloudflare Origin SSL provisioning
 - [ ] 06-03-PLAN.md -- Wave 3: Middleware hostname resolution + domain management APIs (DNS-03)
+- [ ] 06-04-PLAN.md -- Gap closure: Replace stub with actual Drizzle query in lookupVerifiedCustomDomain() (DNS-03)
 
 ## Progress
 
@@ -133,7 +134,7 @@ Plans:
 | 3. Preview Landing Pages | 4/5 | In Progress |  |
 | 4. Production Site | 0/TBD | Not started | - |
 | 5. Authentication & Security | 3/4 | In Progress |  |
-| 6. DNS & Custom Domains | 0/3 | Ready to execute | - |
+| 6. DNS & Custom Domains | 3/4 | In Progress |  |
 
 ## Coverage
 
@@ -153,4 +154,4 @@ Plans:
 ---
 
 *Requirements defined: 2026-03-23*
-*Last updated: 2026-03-25 after Phase 6 planning*
+*Last updated: 2026-03-25 after Phase 6 gap closure planning*
