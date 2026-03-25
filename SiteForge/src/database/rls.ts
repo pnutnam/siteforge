@@ -11,6 +11,8 @@ export const RLS_MIGRATIONS = [
   'ALTER TABLE payload_site_settings ENABLE ROW LEVEL SECURITY',
   'ALTER TABLE owner_accounts ENABLE ROW LEVEL SECURITY',
   'ALTER TABLE feedback_annotations ENABLE ROW LEVEL SECURITY',
+  'ALTER TABLE totp_secrets ENABLE ROW LEVEL SECURITY',
+  'ALTER TABLE refresh_tokens ENABLE ROW LEVEL SECURITY',
 
   `CREATE POLICY tenant_isolation_businesses ON businesses
      FOR ALL USING (tenant_id = current_setting('app.current_tenant', true))`,
@@ -35,5 +37,14 @@ export const RLS_MIGRATIONS = [
   `CREATE POLICY owner_accounts_tenant_isolation ON owner_accounts
      FOR ALL USING (tenant_id = current_setting('app.current_tenant', true))`,
   `CREATE POLICY feedback_annotations_tenant_isolation ON feedback_annotations
+     FOR ALL USING (tenant_id = current_setting('app.current_tenant', true))`,
+  `CREATE POLICY totp_secrets_tenant_isolation ON totp_secrets
+     FOR ALL USING (
+       account_id IN (
+         SELECT id FROM owner_accounts
+         WHERE tenant_id = current_setting('app.current_tenant', true)
+       )
+     )`,
+  `CREATE POLICY refresh_tokens_tenant_isolation ON refresh_tokens
      FOR ALL USING (tenant_id = current_setting('app.current_tenant', true))`,
 ];
