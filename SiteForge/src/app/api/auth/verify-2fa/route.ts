@@ -1,11 +1,3 @@
-/**
- * POST /api/auth/verify-2fa
- * Verifies TOTP code and enables 2FA for the account.
- *
- * Rate limiting: 3 failed attempts per 5-minute window per account.
- * Rate limit counter is cleared on successful verification.
- */
-
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAccessToken } from '@/auth/jwt';
 import { verifyTotpCode, decryptTotpSecret } from '@/auth/totp';
