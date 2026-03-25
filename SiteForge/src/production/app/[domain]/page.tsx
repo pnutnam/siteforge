@@ -1,5 +1,8 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { db } from '@/database/pool';
+import { customDomains, businesses, payloadPages, payloadSiteSettings } from '@/database/schema';
+import { eq, and } from 'drizzle-orm';
 
 // ISR: Revalidate every 60 seconds
 export const revalidate = 60;
@@ -8,39 +11,70 @@ interface ProductionPageProps {
   params: Promise<{ domain: string }>;
 }
 
+interface SiteSettings {
+  siteName: string;
+  tagline: string | null;
+  contactEmail: string | null;
+  contactPhone: string | null;
+  address: string | null;
+}
+
+interface SitePage {
+  id: string;
+  title: string;
+  slug: string;
+  content: Record<string, unknown>;
+  status: string;
+  publishedAt: Date | null;
+}
+
+interface SiteBusiness {
+  id: string;
+  name: string;
+  tenantId: string;
+}
+
+interface ProductionContent {
+  page: SitePage;
+  settings: SiteSettings;
+  business: SiteBusiness;
+}
+
 /**
  * Production site page - serves published content for a business domain.
  * Uses ISR for CDN caching with on-demand revalidation on content changes.
  */
 export async function generateMetadata({ params }: ProductionPageProps): Promise<Metadata> {
   const { domain } = await params;
-
-  // Look up business by domain (or custom domain)
   const business = await getBusinessByDomain(domain);
 
   if (!business) {
     return { title: 'Site Not Found' };
   }
 
+  const settings = await getSiteSettings(business.id, business.tenantId);
+
   return {
-    title: business.siteName || business.businessName,
-    description: business.tagline || `Official website for ${business.businessName}`,
+    title: settings?.siteName || business.name,
+    description: settings?.tagline || `Official website for ${business.name}`,
   };
 }
 
 export default async function ProductionPage({ params }: ProductionPageProps) {
   const { domain } = await params;
 
-  // Look up business and published page
-  const data = await getProductionContent(domain);
-
-  if (!data) {
+  const business = await getBusinessByDomain(domain);
+  if (!business) {
     notFound();
   }
 
-  const { page, settings, business } = data;
+  const content = await getProductionContent(domain);
+  if (!content) {
+    notFound();
+  }
 
-  // Render page content from Tiptap JSON
+  const { page, settings } = content;
+
   return (
     <div className="production-site min-h-screen">
       {/* Header */}
@@ -90,8 +124,6 @@ export default async function ProductionPage({ params }: ProductionPageProps) {
  * Uses @tiptap/react renderers in client component.
  */
 function TiptapRenderer({ content }: { content: Record<string, unknown> }) {
-  // For SSR, we render the HTML output directly
-  // Client-side TiptapEditor handles editing
   return (
     <div
       className="prose prose-lg max-w-none"
@@ -108,8 +140,6 @@ function TiptapRenderer({ content }: { content: Record<string, unknown> }) {
 function tiptapToHtml(content: Record<string, unknown>): string {
   if (!content || !content.type) return '';
 
-  // Basic Tiptap JSON to HTML conversion
-  // In production, use @tiptap/html package
   const contentJson = content as { type: string; content?: unknown[] };
 
   const renderNode = (node: unknown): string => {
@@ -132,9 +162,10 @@ function tiptapToHtml(content: Record<string, unknown>): string {
         return `<em>${(n.content || []).map(renderNode).join('')}</em>`;
       case 'underline':
         return `<u>${(n.content || []).map(renderNode).join('')}</u>`;
-      case 'image':
+      case 'image': {
         const src = (n.attrs?.src as string) || '';
         return `<img src="${src}" alt="" class="w-full h-auto" />`;
+      }
       case 'bulletList':
         return `<ul>${(n.content || []).map(renderNode).join('')}</ul>`;
       case 'orderedList':
@@ -155,16 +186,135 @@ function tiptapToHtml(content: Record<string, unknown>): string {
   return renderNode(contentJson);
 }
 
-async function getBusinessByDomain(domain: string) {
-  // TODO: Implement domain lookup
-  // Query businesses table joined with custom domains
-  return null;
+/**
+ * Look up business by domain.
+ * Resolves custom domain -> tenantId + businessId -> business record.
+ */
+async function getBusinessByDomain(domain: string): Promise<SiteBusiness | null> {
+  // Look up verified custom domain
+  const domainResult = await db
+    .select({
+      businessId: customDomains.businessId,
+      tenantId: customDomains.tenantId,
+    })
+    .from(customDomains)
+    .where(
+      and(
+        eq(customDomains.domain, domain),
+        eq(customDomains.verificationStatus, 'verified')
+      )
+    )
+    .limit(1);
+
+  if (domainResult.length === 0) {
+    return null;
+  }
+
+  const { businessId, tenantId } = domainResult[0];
+
+  // Fetch business record
+  const businessResult = await db
+    .select({
+      id: businesses.id,
+      name: businesses.name,
+      tenantId: businesses.tenantId,
+    })
+    .from(businesses)
+    .where(eq(businesses.id, businessId))
+    .limit(1);
+
+  if (businessResult.length === 0) {
+    return null;
+  }
+
+  return businessResult[0];
 }
 
-async function getProductionContent(domain: string) {
-  // TODO: Implement content lookup
-  // 1. Look up business by domain
-  // 2. Query Payload pages for published page under business
-  // 3. Query Payload site-settings for business settings
-  return null;
+/**
+ * Get site settings for a business.
+ */
+async function getSiteSettings(businessId: string, tenantId: string): Promise<SiteSettings | null> {
+  const result = await db
+    .select({
+      siteName: payloadSiteSettings.siteName,
+      tagline: payloadSiteSettings.tagline,
+      contactEmail: payloadSiteSettings.contactEmail,
+      contactPhone: payloadSiteSettings.contactPhone,
+      address: payloadSiteSettings.address,
+    })
+    .from(payloadSiteSettings)
+    .where(
+      and(
+        eq(payloadSiteSettings.businessId, businessId),
+        eq(payloadSiteSettings.tenantId, tenantId)
+      )
+    )
+    .limit(1);
+
+  if (result.length === 0) {
+    return null;
+  }
+
+  return result[0];
+}
+
+/**
+ * Get published page content for a business.
+ */
+async function getPublishedPage(businessId: string, tenantId: string): Promise<SitePage | null> {
+  const result = await db
+    .select({
+      id: payloadPages.id,
+      title: payloadPages.title,
+      slug: payloadPages.slug,
+      content: payloadPages.content,
+      status: payloadPages.status,
+      publishedAt: payloadPages.publishedAt,
+    })
+    .from(payloadPages)
+    .where(
+      and(
+        eq(payloadPages.businessId, businessId),
+        eq(payloadPages.tenantId, tenantId),
+        eq(payloadPages.status, 'published')
+      )
+    )
+    .limit(1);
+
+  if (result.length === 0) {
+    return null;
+  }
+
+  return result[0];
+}
+
+/**
+ * Get production content: published page + settings for a domain.
+ */
+async function getProductionContent(domain: string): Promise<ProductionContent | null> {
+  const business = await getBusinessByDomain(domain);
+  if (!business) {
+    return null;
+  }
+
+  const [page, settings] = await Promise.all([
+    getPublishedPage(business.id, business.tenantId),
+    getSiteSettings(business.id, business.tenantId),
+  ]);
+
+  if (!page) {
+    return null;
+  }
+
+  return {
+    page,
+    settings: settings || {
+      siteName: business.name,
+      tagline: null,
+      contactEmail: null,
+      contactPhone: null,
+      address: null,
+    },
+    business,
+  };
 }
