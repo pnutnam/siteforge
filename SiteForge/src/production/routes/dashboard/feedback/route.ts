@@ -1,9 +1,16 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { pool } from '../../../database/pool';
+import { requireOwnership } from '@/auth/ownership';
 
-// GET /api/production/dashboard/feedback - List all annotations
-export async function GET() {
+// GET /api/production/dashboard/feedback - List annotations for tenant
+export async function GET(request: NextRequest) {
+  const tenantId = request.headers.get('x-tenant-id');
+  if (!tenantId) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
+    // Use tenant isolation - only return feedback for this tenant
     const result = await pool.query(`
       SELECT
         fa.id,
@@ -21,8 +28,9 @@ export async function GET() {
       FROM feedback_annotations fa
       JOIN businesses b ON b.id = fa.business_id
       JOIN owner_accounts oa ON oa.id = fa.owner_account_id
+      WHERE fa.tenant_id = $1
       ORDER BY fa.created_at DESC
-    `);
+    `, [tenantId]);
 
     const annotations = result.rows.map(row => ({
       id: row.id,
