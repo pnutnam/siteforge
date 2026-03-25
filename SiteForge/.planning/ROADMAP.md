@@ -100,7 +100,12 @@ Plans:
   2. Sessions persist securely with refresh tokens across browser sessions
   3. Rate limiting prevents brute-force attacks on TOTP verification endpoints
   4. Multi-tenant isolation middleware validates tenant_id from JWT matches requested resource on every request
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 05-01-PLAN.md -- Wave 1: JWT foundation + refresh tokens + schema extensions (AUTH-02)
+- [ ] 05-02-PLAN.md -- Wave 2: TOTP 2FA setup/verify endpoints + Next.js middleware (AUTH-01)
+- [ ] 05-03-PLAN.md -- Wave 2: Rate limiting + ownership validation (AUTH-03, AUTH-04)
 
 ### Phase 6: DNS & Custom Domains
 **Goal**: Businesses can use their own domain for their production site with auto-provisioned SSL
@@ -121,7 +126,7 @@ Plans:
 | 2. AI Content Pipeline | 3/3 | Complete | 2026-03-24 |
 | 3. Preview Landing Pages | 4/5 | In Progress |  |
 | 4. Production Site | 0/TBD | Not started | - |
-| 5. Authentication & Security | 0/TBD | Not started | - |
+| 5. Authentication & Security | 0/3 | Not started | - |
 | 6. DNS & Custom Domains | 0/TBD | Not started | - |
 
 ## Coverage
@@ -142,4 +147,4 @@ Plans:
 ---
 
 *Requirements defined: 2026-03-23*
-*Last updated: 2026-03-24 after Phase 3 gap closure planning*
+*Last updated: 2026-03-25 after Phase 5 planning*
