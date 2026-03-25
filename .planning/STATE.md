@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Phase 02 planning complete
-last_updated: "2026-03-24T02:45:00.000Z"
+stopped_at: Completed 06-04-PLAN.md
+last_updated: "2026-03-25T14:51:24.374Z"
 progress:
   total_phases: 6
-  completed_phases: 1
-  total_plans: 8
-  completed_plans: 5
+  completed_phases: 6
+  total_plans: 26
+  completed_plans: 26
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-23)
 
 **Core value:** Every local business deserves a website that sells itself using what's already working — their own social posts and reviews.
-**Current focus:** Phase 02 — AI Content Pipeline
+**Current focus:** Phase 06 — dns-custom-domains
 
 ## Current Position
 
-Phase: 02 (AI Content Pipeline) — PLANNING COMPLETE
-Plan: Ready to execute (3 plans in 3 waves)
+Phase: 06 (dns-custom-domains) — COMPLETED
+Plan: 4 of 4
 
 ## Performance Metrics
 
@@ -51,6 +51,23 @@ Plan: Ready to execute (3 plans in 3 waves)
 | Phase 01 P03 | 7min | 3 tasks | 9 files |
 | Phase 01 P02 | 441 | 6 tasks | 6 files |
 | Phase 01-scraping-infrastructure P01 | 7 | 9 tasks | 21 files |
+| Phase 02 P01 | 4 | 3 tasks | 9 files |
+| Phase 02 P02 | 9 | 3 tasks | 9 files |
+| Phase 02 P03 | 4 | 4 tasks | 7 files |
+| Phase 02 P04 | 46 | 1 tasks | 1 files |
+| Phase 03 P01 | 163 | 4 tasks | 9 files |
+| Phase 03 P02 | 5 | 3 tasks | 16 files |
+| Phase 03 P03 | 240 | 4 tasks | 13 files |
+| Phase 03 P04 | 1 | 2 tasks | 2 files |
+| Phase 03 P05 | 1 | 1 tasks | 1 files |
+| Phase 04 P04-01 | 4 | 3 tasks | 8 files |
+| Phase 04 P04 | 5 | 3 tasks | 8 files |
+| Phase 05 P01 | 3 | 7 tasks | 6 files |
+| Phase 05 P02 | 5 | 5 tasks | 5 files |
+| Phase 05 P03 | 8 | 5 tasks | 5 files |
+| Phase 06 P06-02 | 187 | 2 tasks | 4 files |
+| Phase 06 P06-03 | 3 | 2 tasks | 3 files |
+| Phase 06 P06-04 | 2 | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -63,6 +80,31 @@ Recent decisions affecting current work:
 - Phase 2: AI selects top 20% by engagement, aggressive quality filtering, hybrid copy generation
 - Phase 3: Preview landing pages use Astro (not Hugo) per research recommendation
 - Phase 4: Production sites use Next.js + Payload CMS per research recommendation
+- [Phase 02]: Top 20% by engagement percentile wins for content selection
+- [Phase 02]: Parallel children (image-select + copy-write) per user decision for speed
+- [Phase 02]: Query Instagram/Facebook/Yelp raw tables per actual schema
+- [Phase 02]: Return null on copy generation failure for partial pipeline success
+- [Phase 03]: S3 key format {tenantId}/{businessId}/{contentHash}/index.html for per-tenant isolation
+- [Phase 03]: Cloudflare KV stores biz-{hash} -> {s3Key, tenantId, businessId, expiresAt} mapping
+- [Phase 03]: 30-day default expiration for preview links
+- [Phase 03-02]: Category inference from business name (restaurant/salon/general) rather than explicit category field
+- [Phase 03-05]: Build threshold breach uses console.warn (not console.error) to avoid alarm fatigue
+- [Phase 04]: ISR with on-demand revalidation: pages revalidate via webhook after Payload publish
+- [Phase 04]: Tiptap JSON to HTML: basic node conversion for SSR rendering
+- [Phase 04]: Version conflict detection: 409 response includes current server version
+- [Phase 05-01]: Opaque token approach: random 64-char hex stored as SHA256 hash in Redis
+- [Phase 05-01]: TOTP secrets placeholder for encryption - AES-256-GCM encryption deferred to AUTH-01
+- [Phase 05-01]: ownerAccounts twoFactorEnabled uses integer type (0/1) for Drizzle ORM compatibility
+- [Phase 05-03]: 3 failed TOTP attempts per 5-minute window returns 429 with Retry-After header
+- [Phase 05-03]: Refresh tokens NOT rotated on use per user decision
+- [Phase 05-03]: Logout clears client-side cookie only, refresh token valid until natural expiry
+- [Phase 05-02]: TOTP uses SHA1, 6 digits, 30s period; QR code as data URL; encrypted secret stored as iv:authTag:ciphertext
+- [Phase 06-01]: Cloudflare Origin SSL preferred over Let's Encrypt (uses existing CLOUDFLARE_API_TOKEN, no ACME complexity)
+- [Phase 06-01]: SSL provider factory pattern abstracts Cloudflare Origin vs Let's Encrypt (allows swapping implementations)
+- [Phase 06]: Direct fetch to Cloudflare API v4 instead of cloudflare npm package (TypeScript compatibility issues)
+- [Phase 06-03]: Custom domains use hostname-based resolution, platform domains use JWT
+- [Phase 06-03]: In-memory tenant cache with 5-min TTL (placeholder for Redis in production)
+- [Phase 06-04]: DNS-03 gap closure: middleware uses Drizzle ORM query for verified custom domain tenant resolution
 
 ### Pending Todos
 
@@ -79,6 +121,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-24T02:45:00.000Z
-Stopped at: Phase 02 planning complete
-Resume file: .planning/phases/02-ai-content-pipeline/02-01-PLAN.md
+Last session: 2026-03-25T14:47:04.000Z
+Stopped at: Completed 06-04-PLAN.md
+Resume file: None

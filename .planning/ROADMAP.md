@@ -7,11 +7,11 @@ SiteForge is an AI-powered local business website platform that scrapes business
 ## Phases
 
 - [P] **Phase 1: Scraping Infrastructure** - Reliable data extraction from all sources
-- [ ] **Phase 2: AI Content Pipeline** - AI selects and generates site content
+- [P] **Phase 2: AI Content Pipeline** - AI selects and generates site content
 - [ ] **Phase 3: Preview Landing Pages** - Sales-ready preview links for cold outreach
 - [ ] **Phase 4: Production Site** - Live sites with WYSIWYG editing for customers
 - [ ] **Phase 5: Authentication & Security** - TOTP 2FA and tenant isolation
-- [ ] **Phase 6: DNS & Custom Domains** - Custom domain support with auto-SSL
+- [x] **Phase 6: DNS & Custom Domains** - Custom domain support with auto-SSL (completed 2026-03-25)
 
 ## Phase Details
 
@@ -52,9 +52,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 02-01-PLAN.md -- Wave 1: Engagement scoring + quality filters + template variables schema
-- [ ] 02-02-PLAN.md -- Wave 2: AI quality classifier + testimonial selection + copy generation
-- [ ] 02-03-PLAN.md -- Wave 3: BullMQ AI pipeline orchestrator + integration checkpoint
+- [x] 02-01-PLAN.md -- Wave 1: Engagement scoring + quality filters + template variables schema
+- [x] 02-02-PLAN.md -- Wave 2: AI quality classifier + testimonial selection + copy generation
+- [x] 02-03-PLAN.md -- Wave 3: BullMQ AI pipeline orchestrator + integration checkpoint
 
 ### Phase 3: Preview Landing Pages
 **Goal**: Sales agents can generate and send preview links to business owners for cold outreach
@@ -69,7 +69,14 @@ Plans:
   6. Dashboard shows landing page views, CTR, and time-on-site per preview link
   7. Conversion events (preview link sent, preview viewed, conversion to paid) are tracked
   8. S3 bucket uses per-tenant key prefix isolation for security
-**Plans**: TBD
+**Plans**: 5 plans
+
+Plans:
+- [x] 03-01-PLAN.md -- Wave 1: S3 storage, Cloudflare CDN routing, preview URL system, per-tenant key isolation
+- [x] 03-02-PLAN.md -- Wave 2: Astro build system, templates, JSON compilation, S3 upload trigger
+- [x] 03-03-PLAN.md -- Wave 3: Dashboard email composer, analytics tracking, conversion funnel, claim form
+- [x] 03-04-PLAN.md -- Gap closure: SendGrid email sender integration (PREVIEW-04 blocker)
+- [ ] 03-05-PLAN.md -- Gap closure: 5-minute build time threshold enforcement (PREVIEW-01)
 
 ### Phase 4: Production Site
 **Goal**: Business owners can claim preview and set up their production site with WYSIWYG editing
@@ -93,7 +100,13 @@ Plans:
   2. Sessions persist securely with refresh tokens across browser sessions
   3. Rate limiting prevents brute-force attacks on TOTP verification endpoints
   4. Multi-tenant isolation middleware validates tenant_id from JWT matches requested resource on every request
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [x] 05-01-PLAN.md -- Wave 1: JWT foundation + refresh tokens + schema extensions (AUTH-02)
+- [x] 05-02-PLAN.md -- Wave 2: TOTP 2FA setup/verify endpoints + Next.js middleware (AUTH-01)
+- [x] 05-03-PLAN.md -- Wave 2: Rate limiting + ownership validation (AUTH-03, AUTH-04)
+- [ ] 05-04-PLAN.md -- Gap closure: Wire rate limiting and ownership validation into API routes (AUTH-03, AUTH-04)
 
 ### Phase 6: DNS & Custom Domains
 **Goal**: Businesses can use their own domain for their production site with auto-provisioned SSL
@@ -104,18 +117,24 @@ Plans:
   2. SSL certificate provisions automatically within 10 minutes of DNS change (via Let's Encrypt or Cloudflare Origin SSL)
   3. Tenant resolution correctly identifies business from custom hostname in middleware
   4. Custom domain routes to platform CNAME without port conflicts or redirect loops
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 06-01-PLAN.md -- Wave 1: Database schema (custom_domains table) + DNS types + SSL provider interface
+- [ ] 06-02-PLAN.md -- Wave 2: CNAME validation via Cloudflare DNS API + Cloudflare Origin SSL provisioning
+- [ ] 06-03-PLAN.md -- Wave 3: Middleware hostname resolution + domain management APIs (DNS-03)
+- [x] 06-04-PLAN.md -- Gap closure: Replace stub with actual Drizzle query in lookupVerifiedCustomDomain() (DNS-03)
 
 ## Progress
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Scraping Infrastructure | 3/5 | In Progress|  |
-| 2. AI Content Pipeline | 0/3 | Not started | - |
-| 3. Preview Landing Pages | 0/TBD | Not started | - |
+| 1. Scraping Infrastructure | 5/5 | Complete | 2026-03-23 |
+| 2. AI Content Pipeline | 3/3 | Complete | 2026-03-24 |
+| 3. Preview Landing Pages | 4/5 | In Progress |  |
 | 4. Production Site | 0/TBD | Not started | - |
-| 5. Authentication & Security | 0/TBD | Not started | - |
-| 6. DNS & Custom Domains | 0/TBD | Not started | - |
+| 5. Authentication & Security | 3/4 | In Progress |  |
+| 6. DNS & Custom Domains | 4/4 | Complete | 2026-03-25 |
 
 ## Coverage
 
@@ -135,4 +154,4 @@ Plans:
 ---
 
 *Requirements defined: 2026-03-23*
-*Last updated: 2026-03-23 after Phase 2 planning*
+*Last updated: 2026-03-25 after Phase 6 gap closure planning*
