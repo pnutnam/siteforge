@@ -242,11 +242,31 @@ export const ownerAccounts = pgTable('owner_accounts', {
   magicLinkExpiresAt: timestamp('magic_link_expires_at'),
   status: text('status').notNull().default('pending'),  // pending | active | disabled
   enabledAt: timestamp('enabled_at'),  // When dev team enabled
+  twoFactorEnabled: integer('two_factor_enabled').notNull().default(0),  // boolean as integer
+  twoFactorEnabledAt: timestamp('two_factor_enabled_at'),  // When 2FA was enabled
   createdAt: timestamp('created_at').defaultNow().notNull(),
 }, (table) => [
   index('owner_accounts_tenant_idx').on(table.tenantId),
   index('owner_accounts_email_idx').on(table.email),
   index('owner_accounts_magic_link_token_idx').on(table.magicLinkToken),
+]);
+
+export const totpSecrets = pgTable('totp_secrets', {
+  accountId: uuid('account_id').primaryKey().references(() => ownerAccounts.id),
+  encryptedSecret: text('encrypted_secret').notNull(),  // AES-256-GCM encrypted
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  verifiedAt: timestamp('verified_at'),  // null until first successful verification
+});
+
+export const refreshTokens = pgTable('refresh_tokens', {
+  tokenHash: text('token_hash').primaryKey(),  // SHA256 of the opaque token
+  accountId: uuid('account_id').notNull().references(() => ownerAccounts.id),
+  tenantId: uuid('tenant_id').notNull(),
+  version: integer('version').notNull().default(1),
+  expiresAt: timestamp('expires_at').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+}, (table) => [
+  index('refresh_tokens_account_idx').on(table.accountId),
 ]);
 
 export const feedbackAnnotations = pgTable('feedback_annotations', {
