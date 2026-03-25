@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 04-04-PLAN.md
-last_updated: "2026-03-25T01:02:21.263Z"
+stopped_at: Completed 05-01-PLAN.md
+last_updated: "2026-03-25T13:06:00.000Z"
 progress:
   total_phases: 6
   completed_phases: 4
-  total_plans: 18
-  completed_plans: 18
+  total_plans: 21
+  completed_plans: 19
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-23)
 
 **Core value:** Every local business deserves a website that sells itself using what's already working — their own social posts and reviews.
-**Current focus:** Phase 04 — production-site
+**Current focus:** Phase 05 — authentication-security
 
 ## Current Position
 
-Phase: 04 (production-site) — EXECUTING
-Plan: 1 of 4
+Phase: 05 (authentication-security) — EXECUTING
+Plan: 2 of 3
 
 ## Performance Metrics
 
@@ -62,6 +62,7 @@ Plan: 1 of 4
 | Phase 03 P05 | 1 | 1 tasks | 1 files |
 | Phase 04 P04-01 | 4 | 3 tasks | 8 files |
 | Phase 04 P04 | 5 | 3 tasks | 8 files |
+| Phase 05 P01 | 3 | 7 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -86,6 +87,9 @@ Recent decisions affecting current work:
 - [Phase 04]: ISR with on-demand revalidation: pages revalidate via webhook after Payload publish
 - [Phase 04]: Tiptap JSON to HTML: basic node conversion for SSR rendering
 - [Phase 04]: Version conflict detection: 409 response includes current server version
+- [Phase 05-01]: Opaque token approach: random 64-char hex stored as SHA256 hash in Redis
+- [Phase 05-01]: TOTP secrets placeholder for encryption - AES-256-GCM encryption deferred to AUTH-01
+- [Phase 05-01]: ownerAccounts twoFactorEnabled uses integer type (0/1) for Drizzle ORM compatibility
 
 ### Pending Todos
 
@@ -102,6 +106,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-25T01:02:10.690Z
-Stopped at: Completed 04-04-PLAN.md
+Last session: 2026-03-25T13:06:00.000Z
+Stopped at: Completed 05-01-PLAN.md
 Resume file: None
