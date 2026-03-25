@@ -213,9 +213,9 @@ Verified actual implementation against plan acceptance criteria:
 | Gap | Severity | Evidence |
 |-----|----------|----------|
 | **PROD-01: CDN ISR page content lookup implemented** | FIXED | `src/production/app/[domain]/page.tsx` — getBusinessByDomain() queries customDomains + businesses; getProductionContent() queries published page + settings. ISR page can now serve actual business content. |
-| **Editor page `onSectionUpdate` no-op** | HIGH | `src/production/app/editor/page.tsx:136-138` — `onSectionUpdate` callback in MobileAccordion doesn't persist changes. |
-| **Editor page `onSectionReorder` no-op** | HIGH | `src/production/app/editor/page.tsx:139-141` — `onSectionReorder` callback doesn't actually reorder. |
-| **Editor page `onImageReplace` no-op** | HIGH | `src/production/app/editor/page.tsx:142-144` — `onImageReplace` callback doesn't upload or replace. |
+| **Editor page `onSectionUpdate` no-op** | FIXED | `src/production/app/editor/page.tsx` — handleSectionUpdate now rebuilds full doc from sections and calls handleSave on every section mutation. |
+| **Editor page `onSectionReorder` no-op** | FIXED | `src/production/app/editor/page.tsx` — handleSectionReorder splices array, rebuilds full doc, calls handleSave with new order. |
+| **Editor page `onImageReplace` no-op** | DEFERRED | `src/production/app/editor/page.tsx` — placeholder with console.warn; S3 presigned URL flow is separate feature (PROD-04 deferred). |
 | **Template `onSelect` no-op** | MEDIUM | `src/production/app/editor/page.tsx:115-117` — creates empty page, doesn't actually use selected template ID. |
 | **Template thumbnails/descriptions** | MEDIUM | `TemplatePicker` receives `templates={[]}` — no actual template data loaded. |
 
@@ -239,16 +239,15 @@ This is the same pattern noted in the Phase 4 plan 04 notes: "Full Payload CMS a
 
 ### Impact by Requirement
 
-- **PROD-01**: ISR page structure exists (revalidate: 60, TiptapRenderer) but content lookup is stubbed → production sites cannot serve content
-- **PROD-02**: Mobile accordion + section handles exist but all mutation callbacks are no-ops → mobile editing cannot persist changes
+- **PROD-01**: ✅ FIXED — getBusinessByDomain() + getProductionContent() implemented, ISR page serves actual business content
+- **PROD-02**: ✅ MOSTLY FIXED — onSectionUpdate + onSectionReorder wired; onImageReplace deferred (S3 presigned URLs)
 - **PROD-03**: Tenant isolation fully implemented in schema + RLS → ✅ SATISFIED
 - **PROD-04**: ISR + CDN revalidation infrastructure exists → ✅ SATISFIED (serving, not editing)
 
-### Recommended Fix (v1.1)
+### Remaining Gap (v1.1)
 
-1. Implement `getBusinessByDomain()` in `[domain]/page.tsx` — use `lookupVerifiedCustomDomain()` from middleware pattern
-2. Implement `getProductionContent()` in `[domain]/page.tsx` — query payloadPages + payloadSiteSettings by tenant
-3. Wire up mutation callbacks in editor/page.tsx to actually call the API
+1. **Image replace with S3**: `handleImageReplace` is a placeholder — needs S3 presigned URL flow (PROD-04 deferred item)
+2. **Template picker**: `onSelect` creates empty page, doesn't use selected template ID; `templates={[]}` — no template data loaded
 
 ### Deferred to v1.1 Hardening
 
