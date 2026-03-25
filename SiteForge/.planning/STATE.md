@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 05-01-PLAN.md
-last_updated: "2026-03-25T13:06:00.000Z"
+stopped_at: Completed 05-03-PLAN.md
+last_updated: "2026-03-25T13:19:00.000Z"
 progress:
   total_phases: 6
   completed_phases: 4
   total_plans: 21
-  completed_plans: 19
+  completed_plans: 20
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-23)
 ## Current Position
 
 Phase: 05 (authentication-security) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 
 ## Performance Metrics
 
@@ -63,6 +63,7 @@ Plan: 2 of 3
 | Phase 04 P04-01 | 4 | 3 tasks | 8 files |
 | Phase 04 P04 | 5 | 3 tasks | 8 files |
 | Phase 05 P01 | 3 | 7 tasks | 6 files |
+| Phase 05 P03 | 8 | 5 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -90,6 +91,9 @@ Recent decisions affecting current work:
 - [Phase 05-01]: Opaque token approach: random 64-char hex stored as SHA256 hash in Redis
 - [Phase 05-01]: TOTP secrets placeholder for encryption - AES-256-GCM encryption deferred to AUTH-01
 - [Phase 05-01]: ownerAccounts twoFactorEnabled uses integer type (0/1) for Drizzle ORM compatibility
+- [Phase 05-03]: 3 failed TOTP attempts per 5-minute window returns 429 with Retry-After header
+- [Phase 05-03]: Refresh tokens NOT rotated on use per user decision
+- [Phase 05-03]: Logout clears client-side cookie only, refresh token valid until natural expiry
 
 ### Pending Todos
 
@@ -106,6 +110,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-25T13:06:00.000Z
-Stopped at: Completed 05-01-PLAN.md
+Last session: 2026-03-25T13:19:00.000Z
+Stopped at: Completed 05-03-PLAN.md
 Resume file: None
