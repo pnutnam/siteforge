@@ -39,13 +39,13 @@ A platform that discovers local businesses without websites, auto-generates high
 ### Active (v1.1)
 
 - [ ] **PREVIEW-01**: Generate static landing page — partial: build threshold warns only
-- [ ] **PROD-01**: Production site WYSIWYG editor — orphaned (Phase 4 unverified)
-- [ ] **PROD-02**: Mobile editing — orphaned
-- [ ] **PROD-03**: Per-business isolation — orphaned
-- [ ] **PROD-04**: Mobile-responsive editor — orphaned
+- [ ] **PROD-01**: Production site WYSIWYG editor — partial: CDN ISR page content lookup stubbed (getProductionContent returns null)
+- [ ] **PROD-02**: Mobile editing — partial: accordion mutation callbacks are no-ops
+- [ ] **PROD-03**: Per-business isolation — ✅ satisfied: schema + RLS complete
+- [ ] **PROD-04**: Mobile-responsive editor — ✅ satisfied: ISR + CDN infrastructure complete
 - [ ] **AUTH-01**: TOTP 2FA — partial: setup works, verify endpoint needs rate limiting
 - [ ] **AUTH-02**: Session management — partial: refresh tokens work, rate limiting gap
-- [ ] **AUTH-03**: Rate limiting on TOTP — unsatisfied: verify-2fa not integrated
+- [ ] **AUTH-03**: Rate limiting on TOTP — ✅ satisfied: already integrated (false positive in audit)
 - [ ] **AUTH-04**: Multi-tenant ownership validation — partial: helper not enforced
 
 ### Out of Scope
@@ -61,10 +61,11 @@ A platform that discovers local businesses without websites, auto-generates high
 **Goal:** Close v1.0 tech debt, verify Phase 4, complete auth integration
 
 **Priority work:**
-1. Verify Phase 4 (Production Site) — confirm PROD-01 through PROD-04 work end-to-end
-2. Fix AUTH-03: wire rate limiting into verify-2fa endpoint
+1. ~~Verify Phase 4 (Production Site)~~ — DONE: gaps found (PROD-01/02 content lookup stubbed)
+2. Fix AUTH-03: ~~wire rate limiting into verify-2fa endpoint~~ — FALSE POSITIVE: already integrated
 3. Fix AUTH-04: enforce ownership validation in sensitive API routes
-4. Clean up Phase 3 stale comments
+4. Implement Phase 4 content lookup: `getProductionContent()` + `getBusinessByDomain()` in `[domain]/page.tsx`
+5. Wire mobile accordion mutation callbacks in editor/page.tsx
 
 ## Key Decisions
 
