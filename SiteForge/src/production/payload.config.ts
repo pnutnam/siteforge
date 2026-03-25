@@ -1,11 +1,8 @@
 import { buildConfig } from 'payload';
-import { pages } from './collections/pages';
-import { media } from './collections/media';
-import { settings } from './collections/settings';
-import { users } from './collections/users';
+import { PagesCollection, MediaCollection, SiteSettingsCollection, UsersCollection } from './collections/index';
 
 export const payloadConfig = buildConfig({
-  collections: [pages, media, settings, users],
+  collections: [PagesCollection, MediaCollection, SiteSettingsCollection, UsersCollection],
   telemetry: false,
   secret: process.env.PAYLOAD_SECRET || 'development-secret-change-in-production',
 });
