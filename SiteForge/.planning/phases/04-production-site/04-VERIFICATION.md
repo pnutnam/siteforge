@@ -212,7 +212,7 @@ Verified actual implementation against plan acceptance criteria:
 
 | Gap | Severity | Evidence |
 |-----|----------|----------|
-| **PROD-01: CDN ISR page `getProductionContent()` returns null** | CRITICAL | `src/production/app/[domain]/page.tsx:164-169` — both `getBusinessByDomain()` and `getProductionContent()` are stubbed with `return null`. The ISR page cannot actually serve any business content. |
+| **PROD-01: CDN ISR page content lookup implemented** | FIXED | `src/production/app/[domain]/page.tsx` — getBusinessByDomain() queries customDomains + businesses; getProductionContent() queries published page + settings. ISR page can now serve actual business content. |
 | **Editor page `onSectionUpdate` no-op** | HIGH | `src/production/app/editor/page.tsx:136-138` — `onSectionUpdate` callback in MobileAccordion doesn't persist changes. |
 | **Editor page `onSectionReorder` no-op** | HIGH | `src/production/app/editor/page.tsx:139-141` — `onSectionReorder` callback doesn't actually reorder. |
 | **Editor page `onImageReplace` no-op** | HIGH | `src/production/app/editor/page.tsx:142-144` — `onImageReplace` callback doesn't upload or replace. |
