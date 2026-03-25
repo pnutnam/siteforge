@@ -291,6 +291,26 @@ export const feedbackAnnotations = pgTable('feedback_annotations', {
   index('feedback_annotations_status_idx').on(table.status),
 ]);
 
+export const customDomains = pgTable('custom_domains', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  tenantId: uuid('tenant_id').notNull().references(() => tenants.id),
+  businessId: uuid('business_id').notNull().references(() => businesses.id),
+  domain: text('domain').notNull(),  // e.g., "www.restaurantname.com"
+  cnameTarget: text('cname_target').notNull(),  // e.g., "abc123.cname.siteforge.io"
+  verificationStatus: text('verification_status').notNull().default('pending'),  // pending | verified | failed
+  sslStatus: text('ssl_status').notNull().default('pending'),  // pending | provisioned | failed
+  sslCertificateId: text('ssl_certificate_id'),  // Cloudflare Origin cert ID
+  sslExpiresAt: timestamp('ssl_expires_at'),
+  verifiedAt: timestamp('verified_at'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+}, (table) => [
+  index('custom_domains_tenant_idx').on(table.tenantId),
+  index('custom_domains_business_idx').on(table.businessId),
+  index('custom_domains_domain_idx').on(table.domain).unique(),
+  index('custom_domains_verification_status_idx').on(table.verificationStatus),
+]);
+
 export async function withTenant<T>(
   tenantId: string,
   pool: { connect(): Promise<{ query(sql: string, params?: unknown[]): Promise<unknown>; release(): void }> },
