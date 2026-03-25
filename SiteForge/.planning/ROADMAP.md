@@ -117,7 +117,12 @@ Plans:
   2. SSL certificate provisions automatically within 10 minutes of DNS change (via Let's Encrypt or Cloudflare Origin SSL)
   3. Tenant resolution correctly identifies business from custom hostname in middleware
   4. Custom domain routes to platform CNAME without port conflicts or redirect loops
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 06-01-PLAN.md -- Wave 1: Database schema (custom_domains table) + DNS types + SSL provider interface
+- [ ] 06-02-PLAN.md -- Wave 2: CNAME validation via Cloudflare DNS API + Cloudflare Origin SSL provisioning
+- [ ] 06-03-PLAN.md -- Wave 3: Middleware hostname resolution + domain management APIs (DNS-03)
 
 ## Progress
 
@@ -128,7 +133,7 @@ Plans:
 | 3. Preview Landing Pages | 4/5 | In Progress |  |
 | 4. Production Site | 0/TBD | Not started | - |
 | 5. Authentication & Security | 3/4 | In Progress |  |
-| 6. DNS & Custom Domains | 0/TBD | Not started | - |
+| 6. DNS & Custom Domains | 0/3 | Ready to execute | - |
 
 ## Coverage
 
@@ -148,4 +153,4 @@ Plans:
 ---
 
 *Requirements defined: 2026-03-23*
-*Last updated: 2026-03-25 after Phase 5 planning*
+*Last updated: 2026-03-25 after Phase 6 planning*
