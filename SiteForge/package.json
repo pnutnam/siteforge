@@ -16,6 +16,7 @@
     "@tiptap/react": "^2.10.4",
     "@tiptap/starter-kit": "^2.10.4",
     "bullmq": "^5.71.0",
+    "cloudflare": "^5.2.0",
     "drizzle-orm": "^0.45.1",
     "ioredis": "^5.10.1",
     "jose": "^6.2.2",
