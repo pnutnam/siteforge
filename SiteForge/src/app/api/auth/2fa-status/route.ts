@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAccessToken } from '@/auth/jwt';
+import { requireAccountOwnership } from '@/auth/ownership';
 import { pool } from '@/database/pool';
 
 export async function GET(request: NextRequest) {
@@ -17,6 +18,13 @@ export async function GET(request: NextRequest) {
   }
 
   const { accountId } = payload;
+
+  // Validate that the account belongs to the tenant from JWT
+  try {
+    await requireAccountOwnership(accountId, payload.tenantId);
+  } catch {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  }
 
   // Look up owner_accounts.two_factor_enabled and two_factor_enabled_at
   const result = await pool.query(

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAccessToken } from '@/auth/jwt';
 import { generateTotpSecret, generateTotpUri, encryptTotpSecret } from '@/auth/totp';
+import { requireAccountOwnership } from '@/auth/ownership';
 import { pool } from '@/database/pool';
 import qrcode from 'qrcode';
 
@@ -19,6 +20,13 @@ export async function POST(request: NextRequest) {
   }
 
   const { accountId, email } = payload;
+
+  // Validate that the account belongs to the tenant from JWT
+  try {
+    await requireAccountOwnership(accountId, payload.tenantId);
+  } catch {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  }
 
   // Check if 2FA is already enabled
   const existingCheck = await pool.query(

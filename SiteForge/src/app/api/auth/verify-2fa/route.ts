@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAccessToken, createAccessToken } from '@/auth/jwt';
 import { verifyTotpCode, decryptTotpSecret } from '@/auth/totp';
+import { checkTotpRateLimit, getRateLimitHeaders, clearTotpRateLimit } from '@/auth/rate-limiter';
 import { pool } from '@/database/pool';
 
 export async function POST(request: NextRequest) {
@@ -18,6 +19,16 @@ export async function POST(request: NextRequest) {
   }
 
   const { accountId } = payload;
+
+  // Check rate limit before processing TOTP verification
+  const rateLimitResult = await checkTotpRateLimit(accountId);
+  if (!rateLimitResult.allowed) {
+    const headers = getRateLimitHeaders(rateLimitResult);
+    return NextResponse.json(
+      { error: 'Too many failed attempts. Please try again later.', retryAfter: rateLimitResult.retryAfter },
+      { status: 429, headers }
+    );
+  }
 
   // Parse request body
   const body = await request.json();
@@ -70,6 +81,9 @@ export async function POST(request: NextRequest) {
       { status: 400 }
     );
   }
+
+  // Clear rate limit on successful verification
+  await clearTotpRateLimit(accountId);
 
   // Update totp_secrets.verifiedAt
   await pool.query(

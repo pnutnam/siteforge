@@ -10,6 +10,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createAccessToken } from '@/auth/jwt';
 import { verifyRefreshToken, createRefreshToken, setRefreshCookie } from '@/auth/refresh';
+import { requireAccountOwnership } from '@/auth/ownership';
 import { pool } from '@/database/pool';
 
 const REFRESH_TOKEN_COOKIE_NAME = 'sf_refresh';
@@ -45,6 +46,13 @@ export async function POST(request: NextRequest) {
     }
 
     const account = accountResult.rows[0];
+
+    // Validate that the account belongs to the tenant from JWT
+    try {
+      await requireAccountOwnership(accountId, tenantId);
+    } catch {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
 
     // 4. If account status is not 'active', return 403
     if (account.status !== 'active') {
