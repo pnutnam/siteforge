@@ -104,7 +104,7 @@ Plans:
 
 Plans:
 - [x] 05-01-PLAN.md -- Wave 1: JWT foundation + refresh tokens + schema extensions (AUTH-02)
-- [ ] 05-02-PLAN.md -- Wave 2: TOTP 2FA setup/verify endpoints + Next.js middleware (AUTH-01)
+- [x] 05-02-PLAN.md -- Wave 2: TOTP 2FA setup/verify endpoints + Next.js middleware (AUTH-01)
 - [x] 05-03-PLAN.md -- Wave 2: Rate limiting + ownership validation (AUTH-03, AUTH-04)
 
 ### Phase 6: DNS & Custom Domains
@@ -126,7 +126,7 @@ Plans:
 | 2. AI Content Pipeline | 3/3 | Complete | 2026-03-24 |
 | 3. Preview Landing Pages | 4/5 | In Progress |  |
 | 4. Production Site | 0/TBD | Not started | - |
-| 5. Authentication & Security | 2/3 | In Progress |  |
+| 5. Authentication & Security | 3/3 | Complete | 2026-03-25 |
 | 6. DNS & Custom Domains | 0/TBD | Not started | - |
 
 ## Coverage
