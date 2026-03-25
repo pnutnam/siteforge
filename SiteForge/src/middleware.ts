@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAccessToken } from '@/auth/jwt';
+import { db } from '@/database/pool';
+import { customDomains } from '@/database/schema';
+import { eq, and } from 'drizzle-orm';
 
 const PUBLIC_PATHS = [
   '/api/auth/setup-2fa',
@@ -99,23 +102,18 @@ async function resolveTenantFromHostname(hostname: string): Promise<string | nul
   return tenantId;
 }
 
-// Placeholder for database lookup - implement with actual Drizzle ORM query
 async function lookupVerifiedCustomDomain(hostname: string): Promise<string | null> {
-  // TODO: Implement with actual database query:
-  // const result = await db
-  //   .select({ tenantId: customDomains.tenantId })
-  //   .from(customDomains)
-  //   .where(
-  //     and(
-  //       eq(customDomains.domain, hostname),
-  //       eq(customDomains.verificationStatus, 'verified')
-  //     )
-  //   )
-  //   .limit(1);
-  // return result[0]?.tenantId ?? null;
-
-  // For now, return null (will be implemented with real DB in Plan 06-04)
-  return null;
+  const result = await db
+    .select({ tenantId: customDomains.tenantId })
+    .from(customDomains)
+    .where(
+      and(
+        eq(customDomains.domain, hostname),
+        eq(customDomains.verificationStatus, 'verified')
+      )
+    )
+    .limit(1);
+  return result[0]?.tenantId ?? null;
 }
 
 export const config = {
