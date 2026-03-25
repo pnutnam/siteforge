@@ -33,10 +33,10 @@
 
 ### Production Sites
 
-- [ ] **PROD-01**: Production site with real-time WYSIWYG editor (Tiptap)
-- [ ] **PROD-02**: Owner can edit any text, image, section from mobile phone
-- [ ] **PROD-03**: Per-business site isolation (tenant middleware, row-level security)
-- [ ] **PROD-04**: Mobile-responsive editor rendering
+- [x] **PROD-01**: Production site with real-time WYSIWYG editor (Tiptap)
+- [x] **PROD-02**: Owner can edit any text, image, section from mobile phone
+- [x] **PROD-03**: Per-business site isolation (tenant middleware, row-level security)
+- [x] **PROD-04**: Mobile-responsive editor rendering
 
 ### Authentication & Security
 
@@ -118,10 +118,10 @@
 | PREVIEW-03 | Phase 3 | Complete |
 | PREVIEW-04 | Phase 3 | Complete |
 | PREVIEW-05 | Phase 3 | Complete |
-| PROD-01 | Phase 4 | Pending |
-| PROD-02 | Phase 4 | Pending |
-| PROD-03 | Phase 4 | Pending |
-| PROD-04 | Phase 4 | Pending |
+| PROD-01 | Phase 4 | Complete |
+| PROD-02 | Phase 4 | Complete |
+| PROD-03 | Phase 4 | Complete |
+| PROD-04 | Phase 4 | Complete |
 | AUTH-01 | Phase 5 | Pending |
 | AUTH-02 | Phase 5 | Pending |
 | AUTH-03 | Phase 5 | Pending |
