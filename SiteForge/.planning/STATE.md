@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 04-01-PLAN.md
-last_updated: "2026-03-25T00:46:25.450Z"
+stopped_at: Completed 04-04-PLAN.md
+last_updated: "2026-03-25T01:02:21.263Z"
 progress:
   total_phases: 6
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 18
-  completed_plans: 15
+  completed_plans: 18
 ---
 
 # Project State
@@ -61,6 +61,7 @@ Plan: 1 of 4
 | Phase 03 P04 | 1 | 2 tasks | 2 files |
 | Phase 03 P05 | 1 | 1 tasks | 1 files |
 | Phase 04 P04-01 | 4 | 3 tasks | 8 files |
+| Phase 04 P04 | 5 | 3 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -82,6 +83,9 @@ Recent decisions affecting current work:
 - [Phase 03]: 30-day default expiration for preview links
 - [Phase 03-02]: Category inference from business name (restaurant/salon/general) rather than explicit category field
 - [Phase 03-05]: Build threshold breach uses console.warn (not console.error) to avoid alarm fatigue
+- [Phase 04]: ISR with on-demand revalidation: pages revalidate via webhook after Payload publish
+- [Phase 04]: Tiptap JSON to HTML: basic node conversion for SSR rendering
+- [Phase 04]: Version conflict detection: 409 response includes current server version
 
 ### Pending Todos
 
@@ -98,6 +102,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-25T00:46:25.445Z
-Stopped at: Completed 04-01-PLAN.md
+Last session: 2026-03-25T01:02:10.690Z
+Stopped at: Completed 04-04-PLAN.md
 Resume file: None
