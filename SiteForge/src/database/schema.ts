@@ -1,4 +1,4 @@
-import { pgTable, uuid, text, timestamp, jsonb, index } from 'drizzle-orm/pg-core';
+import { pgTable, uuid, text, timestamp, jsonb, index, integer } from 'drizzle-orm/pg-core';
 
 export const tenants = pgTable('tenants', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -179,6 +179,96 @@ export const analyticsEvents = pgTable('analytics_events', {
   index('analytics_events_preview_link_idx').on(table.previewLinkId),
   index('analytics_events_type_idx').on(table.eventType),
   index('analytics_events_timestamp_idx').on(table.timestamp),
+]);
+
+// Production site tables (Payload CMS)
+export const payloadPages = pgTable('payload_pages', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  tenantId: uuid('tenant_id').notNull(),
+  businessId: uuid('business_id').notNull().references(() => businesses.id),
+  title: text('title').notNull().default('Untitled'),
+  slug: text('slug').notNull(),
+  content: jsonb('content').notNull().default({}),  // Tiptap JSON
+  templateId: text('template_id'),
+  status: text('status').notNull().default('draft'),  // draft | published
+  publishedAt: timestamp('published_at'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+  version: integer('version').notNull().default(1),
+}, (table) => [
+  index('payload_pages_tenant_idx').on(table.tenantId),
+  index('payload_pages_business_idx').on(table.businessId),
+  index('payload_pages_slug_idx').on(table.slug),
+]);
+
+export const payloadMedia = pgTable('payload_media', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  tenantId: uuid('tenant_id').notNull(),
+  businessId: uuid('business_id').notNull().references(() => businesses.id),
+  filename: text('filename').notNull(),
+  mimeType: text('mime_type').notNull(),
+  s3Key: text('s3_key').notNull(),  // S3 key following {tenantId}/{businessId}/media/{filename}
+  size: integer('size').notNull(),
+  width: integer('width'),
+  height: integer('height'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+}, (table) => [
+  index('payload_media_tenant_idx').on(table.tenantId),
+  index('payload_media_business_idx').on(table.businessId),
+]);
+
+export const payloadSiteSettings = pgTable('payload_site_settings', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  tenantId: uuid('tenant_id').notNull().unique(),
+  businessId: uuid('business_id').notNull().references(() => businesses.id),
+  siteName: text('site_name').notNull(),
+  tagline: text('tagline'),
+  contactEmail: text('contact_email'),
+  contactPhone: text('contact_phone'),
+  address: text('address'),
+  socialLinks: jsonb('social_links').default({}),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+}, (table) => [
+  index('payload_settings_tenant_idx').on(table.tenantId),
+]);
+
+export const ownerAccounts = pgTable('owner_accounts', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  tenantId: uuid('tenant_id').notNull(),
+  businessId: uuid('business_id').notNull().references(() => businesses.id),
+  email: text('email').notNull().unique(),
+  magicLinkToken: text('magic_link_token'),
+  magicLinkExpiresAt: timestamp('magic_link_expires_at'),
+  status: text('status').notNull().default('pending'),  // pending | active | disabled
+  enabledAt: timestamp('enabled_at'),  // When dev team enabled
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+}, (table) => [
+  index('owner_accounts_tenant_idx').on(table.tenantId),
+  index('owner_accounts_email_idx').on(table.email),
+  index('owner_accounts_magic_link_token_idx').on(table.magicLinkToken),
+]);
+
+export const feedbackAnnotations = pgTable('feedback_annotations', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  tenantId: uuid('tenant_id').notNull(),
+  businessId: uuid('business_id').notNull().references(() => businesses.id),
+  previewLinkId: uuid('preview_link_id').notNull().references(() => previewLinks.id),
+  ownerAccountId: uuid('owner_account_id').notNull().references(() => ownerAccounts.id),
+  pageUrl: text('page_url').notNull(),
+  pinX: integer('pin_x').notNull(),  // Percentage position 0-100
+  pinY: integer('pin_y').notNull(),
+  comment: text('comment').notNull(),
+  screenshotUrl: text('screenshot_url'),
+  status: text('status').notNull().default('open'),  // open | resolved
+  resolvedAt: timestamp('resolved_at'),
+  resolvedBy: uuid('resolved_by'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+}, (table) => [
+  index('feedback_annotations_tenant_idx').on(table.tenantId),
+  index('feedback_annotations_business_idx').on(table.businessId),
+  index('feedback_annotations_preview_link_idx').on(table.previewLinkId),
+  index('feedback_annotations_status_idx').on(table.status),
 ]);
 
 export async function withTenant<T>(
