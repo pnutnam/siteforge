@@ -39,7 +39,7 @@ A platform that discovers local businesses without websites, auto-generates high
 ### Active (v1.1)
 
 - [ ] **PREVIEW-01**: Generate static landing page — partial: build threshold warns only
-- [ ] **PROD-01**: Production site WYSIWYG editor — partial: CDN ISR page content lookup stubbed (getProductionContent returns null)
+- [ ] **PROD-01**: Production site WYSIWYG editor — partial: ISR serving functional (getProductionContent implemented), editor saving callbacks still no-ops
 - [ ] **PROD-02**: Mobile editing — partial: accordion mutation callbacks are no-ops
 - [ ] **PROD-03**: Per-business isolation — ✅ satisfied: schema + RLS complete
 - [ ] **PROD-04**: Mobile-responsive editor — ✅ satisfied: ISR + CDN infrastructure complete
@@ -62,9 +62,9 @@ A platform that discovers local businesses without websites, auto-generates high
 
 **Priority work:**
 1. ~~Verify Phase 4 (Production Site)~~ — DONE: gaps found (PROD-01/02 content lookup stubbed)
-2. Fix AUTH-03: ~~wire rate limiting into verify-2fa endpoint~~ — FALSE POSITIVE: already integrated
+2. ~~Fix AUTH-03: wire rate limiting into verify-2fa endpoint~~ — FALSE POSITIVE: already integrated
 3. Fix AUTH-04: enforce ownership validation in sensitive API routes
-4. Implement Phase 4 content lookup: `getProductionContent()` + `getBusinessByDomain()` in `[domain]/page.tsx`
+4. ~~Implement Phase 4 content lookup~~ — DONE: `getProductionContent()` + `getBusinessByDomain()` implemented in `[domain]/page.tsx`
 5. Wire mobile accordion mutation callbacks in editor/page.tsx
 
 ## Key Decisions
