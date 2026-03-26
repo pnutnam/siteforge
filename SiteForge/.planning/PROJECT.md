@@ -8,7 +8,7 @@ A platform that discovers local businesses without websites, auto-generates high
 
 ## Current State
 
-**Milestone:** v1.1 Hardening — shipped 2026-03-25
+**Milestone:** v1.2 Preview Landing Pages — in progress
 
 **What was built (v1.0 + v1.1):**
 - Scraping infrastructure: 5 parallel scrapers (Google Maps, Instagram, Facebook, Yelp, Google Reviews) with BullMQ job queue and PostgreSQL tenant isolation
@@ -23,6 +23,16 @@ A platform that discovers local businesses without websites, auto-generates high
 - PREVIEW-01: build threshold warns only (landing page generation)
 - Image replace: S3 presigned URL flow not yet implemented (PROD-04 deferred)
 - Template picker: `onSelect` creates empty page, no template data loaded
+
+## Current Milestone: v1.2 Preview Landing Pages
+
+**Goal:** Complete preview landing page generation from scraped data, wire template system, close remaining auth gaps
+
+**Target features:**
+- PREVIEW-01: Complete static landing page generation from scraped data
+- PREVIEW-02/03/04/05: Wired template selection, S3 upload, preview URL delivery, SendGrid email
+- Template system: Load templates, wire onSelect to actual content
+- Image upload: S3 presigned URLs for editor image replace
 
 ## Requirements
 
@@ -42,31 +52,31 @@ A platform that discovers local businesses without websites, auto-generates high
 - [x] AUTH-03 (rate limiting) — v1.1 corrected
 - [x] AUTH-04 (ownership validation) — v1.1
 
-### Active (v2.0)
+### Active (v1.2)
 
-- [ ] **PREVIEW-01**: Generate static landing page — partial: build threshold warns only
-- [ ] **AUTH-01**: TOTP 2FA — partial: setup works, verify needs rate limiting
-- [ ] **AUTH-02**: Session management — partial: refresh tokens work, rate limiting gap
-- [ ] **Payment**: Stripe integration — deferred to v2
-- [ ] **Image upload**: S3 presigned URLs for image replace — deferred
+- [ ] **PREVIEW-01**: Complete static landing page generation from scraped data — partial: build threshold warns only
+- [ ] **PREVIEW-02**: Template selection with actual content loading — partial: onSelect creates empty page
+- [ ] **PREVIEW-03**: S3 presigned URL upload for preview assets — not started
+- [ ] **PREVIEW-04**: Preview URL delivery via SendGrid email — partial: delivery exists
+- [ ] **PREVIEW-05**: Conversion analytics tracking — partial: basic analytics
+- [ ] **Image-01**: S3 presigned URLs for editor image replace — deferred from v1.1
 
-### Out of Scope
+### Out of Scope (v2.0)
 
+- **Stripe payment integration** — First paying customers
 - **White-labeling** — Each business gets platform-hosted site
 - **Blog/CMS features beyond basic edits** — No posts, events, booking in v1
 - **Mobile native app** — Responsive web only
 - **Multi-location support** — One site per business in v1
 
-## Next Milestone: v2.0
+## Next Milestone: v2.0 Launch
 
-**Goal:** Launch — first paying customers, Stripe billing, real data
+**Goal:** First paying customers, Stripe billing, real data
 
 **Priority work:**
 1. Stripe payment integration ($50/mo subscription)
-2. PREVIEW-01: complete landing page generation from scraped data
-3. AUTH-01/02: wire rate limiting into verify-2fa + enforce in API routes
-4. Image upload: S3 presigned URLs for editor
-5. Template system: load templates, wire onSelect
+2. AUTH-01/02: wire rate limiting into verify-2fa + enforce in API routes
+3. Real scraping data end-to-end
 
 ## Key Decisions
 
@@ -88,4 +98,4 @@ A platform that discovers local businesses without websites, auto-generates high
 
 ---
 
-*Last updated: 2026-03-25 after v1.1 milestone*
+*Last updated: 2026-03-25 after v1.2 milestone started*
