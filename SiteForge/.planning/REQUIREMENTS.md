@@ -1,148 +1,79 @@
 # Requirements: SiteForge
 
-**Defined:** 2026-03-23
+**Defined:** 2026-03-25
 **Core Value:** Every local business deserves a website that sells itself using what's already working — their own social posts and reviews.
 
-## v1 Requirements
+## v1.2 Requirements
 
-### Scraping
-
-- [x] **SCRAPE-01**: Headless Playwright scrapes Google Maps listing (business name, address, phone, hours, 160 results per query, all reviews)
-- [x] **SCRAPE-02**: Scrape Instagram profile and top posts by engagement (likes + comments + shares)
-- [x] **SCRAPE-03**: Scrape Google Reviews (text, rating, date, author)
-- [x] **SCRAPE-04**: Scrape Facebook page info and top posts
-- [x] **SCRAPE-05**: Scrape Yelp business info and top reviews
-- [x] **SCRAPE-06**: Parallel scraping of all sources per business (Promise.all with individual retry logic)
-- [x] **SCRAPE-07**: Anti-bot detection handling (stealth mode, proxy rotation, rate limiting)
-- [x] **SCRAPE-08**: Scraped data validation and normalization before AI processing
-
-### Content Intelligence
-
-- [x] **CONTENT-01**: AI selects highest-engagement content (images/posts) to feature on generated site
-- [x] **CONTENT-02**: AI content quality classification (filters off-brand, party photos, low-quality)
-- [x] **CONTENT-03**: AI generates site copy using business info + social proof as source material
-- [x] **CONTENT-04**: AI maps scraped data to Hugo/Astro template variables
+Requirements for preview landing page completion. Each maps to roadmap phases.
 
 ### Preview Landing Pages
 
-- [ ] **PREVIEW-01**: Generate static landing page (Astro) from scraped + AI content
-- [x] **PREVIEW-02**: Serve landing pages from S3 + Cloudflare CDN (sub-50ms global delivery)
-- [x] **PREVIEW-03**: Generate unique preview URL for each landing page (e.g. `biz-{hash}.preview.siteforge.io`)
-- [x] **PREVIEW-04**: Email or SMS landing page link to business owner via sales agent
-- [x] **PREVIEW-05**: Preview link expiration mechanism (conversion urgency)
+- [ ] **PREVIEW-01**: System generates a static landing page HTML from scraped business data when build threshold is met
+- [ ] **PREVIEW-02**: When user selects a template, the page populates with actual scraped business content (photos, reviews, copy)
+- [ ] **PREVIEW-03**: Preview assets (images, CSS) upload to S3 via presigned URLs and are served via Cloudflare CDN
+- [ ] **PREVIEW-04**: Preview URL is delivered to business owner via SendGrid email with the unique link
+- [ ] **PREVIEW-05**: Dashboard shows preview page views, click-through rate, and time-on-site analytics
 
-### Production Sites
+### Template System
 
-- [x] **PROD-01**: Production site with real-time WYSIWYG editor (Tiptap)
-- [x] **PROD-02**: Owner can edit any text, image, section from mobile phone
-- [x] **PROD-03**: Per-business site isolation (tenant middleware, row-level security)
-- [x] **PROD-04**: Mobile-responsive editor rendering
+- [ ] **TEMPL-01**: Templates are loaded from storage (file system or S3) with name, description, thumbnail, and content schema
+- [ ] **TEMPL-02**: Template onSelect handler populates the editor with the selected template's structure and scraped content mapped into sections
 
-### Authentication & Security
+### Image Upload
 
-- [ ] **AUTH-01**: Owner authentication with TOTP-based 2FA (Authenticator app via otplib)
-- [ ] **AUTH-02**: Session management with secure refresh tokens
-- [ ] **AUTH-03**: Rate limiting on TOTP verification endpoints
-- [ ] **AUTH-04**: Multi-tenant isolation middleware (tenant_id from hostname, validated in every request)
+- [ ] **IMG-01**: Editor image replace flow uses S3 presigned URLs — client requests URL from API, uploads directly to S3, returns final URL
 
-### DNS & Domains
+### Authentication & Security (carry-over gaps)
 
-- [ ] **DNS-01**: Custom domain support — business points DNS to platform CNAME
-- [ ] **DNS-02**: Automated SSL certificate provisioning (Let's Encrypt or Cloudflare Origin SSL)
-- [ ] **DNS-03**: Tenant resolution from hostname in middleware
-
-### Pipeline & Infrastructure
-
-- [x] **PIPELINE-01**: Scraping → AI selection → Hugo build pipeline orchestration (BullMQ)
-- [x] **PIPELINE-02**: Landing page live within 10 minutes of starting scrape
-- [x] **PIPELINE-03**: Job queue with retry logic and failure recovery
-- [x] **INFRA-01**: PostgreSQL database with tenant-isolated schema
-- [x] **INFRA-02**: S3 bucket with per-tenant key prefix isolation
-
-### Monitoring & Analytics
-
-- [x] **MONITOR-01**: Dashboard showing landing page views, CTR, time-on-site per preview link
-- [x] **MONITOR-02**: Conversion tracking (preview → paid subscription)
-- [x] **MONITOR-03**: Scraping pipeline success/failure monitoring
+- [ ] **AUTH-01**: TOTP 2FA verify endpoint enforces rate limiting (5 attempts per minute per account)
+- [ ] **AUTH-02**: Session management API routes enforce rate limiting on all sensitive endpoints
 
 ## v2 Requirements
 
-### Enhanced Scraping
-- **SCRAPE-09**: Residential proxy rotation for anti-bot evasion
-- **SCRAPE-10**: CAPTCHA solving integration for Google Maps
+Deferred to future release. Tracked but not in current roadmap.
 
 ### Payments
-- **PAY-01**: Stripe integration for $50/mo subscription billing
-- **PAY-02**: Usage-based billing for overages (scraping quota)
 
-### Outreach Integration
-- **OUTREACH-01**: Agentic sales rep integration (API for preview link delivery)
-- **OUTREACH-02**: SMS outreach via Twilio
-- **OUTREACH-03**: Email outreach with open/click tracking
-
-### Advanced Features
-- **PROD-05**: Blog/announcements section
-- **PROD-06**: Photo gallery management
-- **PROD-07**: Contact form with email notification
-- **PROD-08**: Google Maps embed integration
+- **PAY-01**: Owner can subscribe to a $50/mo plan via Stripe
+- **PAY-02**: Owner can manage billing (update card, cancel subscription)
+- **PAY-03**: Access to production site requires active subscription
 
 ## Out of Scope
 
+Explicitly excluded. Documented to prevent scope creep.
+
 | Feature | Reason |
 |---------|--------|
-| Native iOS/Android app | Responsive web sufficient for v1 |
+| White-labeling | Each business gets platform-hosted site |
+| Blog/CMS features beyond basic edits | No posts, events, booking in v1 |
+| Mobile native app | Responsive web only |
 | Multi-location support | One site per business in v1 |
-| Appointment booking | Not core to the "auto-generated site" value |
-| Blog/CMS beyond basic edits | Keep v1 focused on the editor |
-| White-label/reseller | Platform-branded only for v1 |
-| Payment processing beyond Stripe | Manual invoicing acceptable for v1 launch |
+| Real-time collaborative editing | Single-owner editing is fine for local businesses |
+| Automated social posting | One-way read only, no posting back to platforms |
 
 ## Traceability
 
+Which phases cover which requirements. Updated during roadmap creation.
+
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SCRAPE-01 | Phase 1 | Complete |
-| SCRAPE-02 | Phase 1 | Complete |
-| SCRAPE-03 | Phase 1 | Complete |
-| SCRAPE-04 | Phase 1 | Complete |
-| SCRAPE-05 | Phase 1 | Complete |
-| SCRAPE-06 | Phase 1 | Complete |
-| SCRAPE-07 | Phase 1 | Complete |
-| SCRAPE-08 | Phase 1 | Complete |
-| CONTENT-01 | Phase 2 | Complete |
-| CONTENT-02 | Phase 2 | Complete |
-| CONTENT-03 | Phase 2 | Complete |
-| CONTENT-04 | Phase 2 | Complete |
-| PREVIEW-01 | Phase 3 | Pending |
-| PREVIEW-02 | Phase 3 | Complete |
-| PREVIEW-03 | Phase 3 | Complete |
-| PREVIEW-04 | Phase 3 | Complete |
-| PREVIEW-05 | Phase 3 | Complete |
-| PROD-01 | Phase 4 | Complete |
-| PROD-02 | Phase 4 | Complete |
-| PROD-03 | Phase 4 | Complete |
-| PROD-04 | Phase 4 | Complete |
-| AUTH-01 | Phase 5 | Pending |
-| AUTH-02 | Phase 5 | Pending |
-| AUTH-03 | Phase 5 | Pending |
-| AUTH-04 | Phase 5 | Pending |
-| DNS-01 | Phase 6 | Pending |
-| DNS-02 | Phase 6 | Pending |
-| DNS-03 | Phase 6 | Pending |
-| PIPELINE-01 | Phase 1 | Complete |
-| PIPELINE-02 | Phase 2 | Complete |
-| PIPELINE-03 | Phase 1 | Complete |
-| INFRA-01 | Phase 1 | Complete |
-| INFRA-02 | Phase 3 | Complete |
-| MONITOR-01 | Phase 3 | Complete |
-| MONITOR-02 | Phase 3 | Complete |
-| MONITOR-03 | Phase 1 | Complete |
+| PREVIEW-01 | Phase 7 | Pending |
+| PREVIEW-03 | Phase 7 | Pending |
+| PREVIEW-04 | Phase 7 | Pending |
+| TEMPL-01 | Phase 8 | Pending |
+| TEMPL-02 | Phase 8 | Pending |
+| PREVIEW-02 | Phase 8 | Pending |
+| PREVIEW-05 | Phase 8 | Pending |
+| IMG-01 | Phase 9 | Pending |
+| AUTH-01 | Phase 9 | Pending |
+| AUTH-02 | Phase 9 | Pending |
 
 **Coverage:**
-- v1 requirements: 36 total
-- Mapped to phases: 36
-- Unmapped: 0
+- v1.2 requirements: 10 total
+- Mapped to phases: 10
+- Unmapped: 0 ✓
 
 ---
-*Requirements defined: 2026-03-23*
-*Last updated: 2026-03-23 after roadmap creation*
+*Requirements defined: 2026-03-25*
+*Last updated: 2026-03-25 for v1.2 milestone*
