@@ -1,0 +1,13 @@
+# /etc/udev/rules.d/99-thunderbolt-dock-display.rules
+#
+# Triggers dock-display-reinit.service when the ThinkPad Thunderbolt 4
+# Workstation Dock (40B0) is authorized and bound to the system.
+#
+# Active dock domain: c0030000-0080-841e-8320-351e56221924
+#
+# Match on the Thunderbolt domain when the dock device is added/bound.
+# ACTION=="" means the device was added and is now available.
+
+SUBSYSTEM=="thunderbolt", ACTION=="bind", \
+    ENV{THUNDERBOLT_DOMAIN}=="c0030000-0080-841e-8320-351e56221924", \
+    RUN+="/bin/systemctl --no-block start dock-display-reinit.service"

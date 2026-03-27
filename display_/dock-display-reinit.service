@@ -1,0 +1,16 @@
+[Unit]
+Description=ThinkPad Dock Display Re-initialization
+After=bolt.service
+Wants=bolt.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/dock-display-reinit.sh
+StandardOutput=journal
+StandardError=journal
+# Give the Thunderbolt link time to stabilize before we start
+# This is triggered by bolt authorization, so 3s is plenty
+TimeoutStartSec=30
+
+[Install]
+WantedBy=multi-user.target
