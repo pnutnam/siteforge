@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 550">
+  <rect width="400" height="550" fill="#008080"/>
+  ${Array.from({length: 8}, (_, i) => 
+    `<rect x="${40 + i*10}" y="${40 + i*10}" width="${320 - i*20}" height="${470 - i*20}" rx="12" fill="none" stroke="white" stroke-width="1.5" opacity="${0.9 - i*0.1}"/>`
+  ).join('')}
+  <text x="200" y="290" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white" text-anchor="middle">airbnb</text>
+</svg>

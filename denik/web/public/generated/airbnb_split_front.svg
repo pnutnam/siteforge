@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 378 594">
+  <!-- Binding -->
+  <rect x="0" y="0" width="15" height="594" fill="#B33F43"/>
+  <!-- Left panel -->
+  <rect x="15" y="0" width="130" height="594" fill="#5AFFFA"/>
+  <!-- Right panel -->
+  <rect x="145" y="0" width="233" height="594" fill="#FF5A5F"/>
+  <!-- Divider -->
+  <line x1="145" y1="50" x2="145" y2="544" stroke="white" stroke-width="4" opacity="0.7"/>
+  <!-- Logo -->
+  <g transform="translate(40, 160) scale(0.55)"></g>
+  <!-- Brand name -->
+  <text x="261.5" y="260" font-family="Georgia, serif" font-size="32" font-weight="bold" fill="white" text-anchor="middle" letter-spacing="2">Airbnb</text>
+  <!-- Tagline -->
+  <text x="261.5" y="310" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" opacity="0.8">COLLECTION</text>
+</svg>

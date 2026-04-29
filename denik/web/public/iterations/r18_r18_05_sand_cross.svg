@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 550">
+  <rect width="400" height="550" fill="white"/>
+  <line x1="0" y1="275" x2="400" y2="275" stroke="#FF5A5F" stroke-width="60"/>
+  <line x1="200" y1="0" x2="200" y2="550" stroke="#FF5A5F" stroke-width="60"/>
+  <circle cx="200" cy="275" r="80" fill="white"/>
+  <text x="200" y="285" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#FF5A5F" text-anchor="middle">airbnb</text>
+</svg>

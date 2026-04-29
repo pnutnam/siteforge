@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 550">
+  <defs>
+    <radialGradient id="rauschGrad" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#FF5A5F"/>
+      <stop offset="100%" stop-color="#FF8A8A"/>
+    </radialGradient>
+    <pattern id="rays" width="20" height="20" patternUnits="userSpaceOnUse">
+      <line x1="10" y1="0" x2="10" y2="20" stroke="white" stroke-width="0.5" opacity="0.3"/>
+      <line x1="0" y1="10" x2="20" y2="10" stroke="white" stroke-width="0.5" opacity="0.3"/>
+    </pattern>
+  </defs>
+  <rect width="400" height="550" fill="url(#rauschGrad)"/>
+  <rect width="400" height="550" fill="url(#rays)"/>
+  <circle cx="200" cy="275" r="120" fill="#FF5A5F" opacity="0.8"/>
+  <text x="200" y="285" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="white" text-anchor="middle">airbnb</text>
+</svg>

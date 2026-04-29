@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 550">
+  <defs>
+    <pattern id="mazeDeep" width="30" height="30" patternUnits="userSpaceOnUse">
+      <rect width="30" height="30" fill="#FF5A5F"/>
+      <path d="M0,15 h10 v-10 h10 M15,0 v10 h-10" fill="none" stroke="white" stroke-width="3"/>
+    </pattern>
+    <clipPath id="coverClip">
+      <rect x="30" y="30" width="340" height="490" rx="15"/>
+    </clipPath>
+  </defs>
+  <rect width="400" height="550" fill="white"/>
+  <rect x="30" y="30" width="340" height="490" rx="15" fill="url(#mazeDeep)" clip-path="url(#coverClip)"/>
+  <text x="200" y="285" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#FF5A5F" text-anchor="middle">airbnb</text>
+</svg>

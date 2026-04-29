@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 378 594">
+  <!-- Night background -->
+  <rect width="378" height="594" fill="#0D1B2A"/>
+  <!-- Accent binding -->
+  <rect x="0" y="0" width="15" height="594" fill="#FF5A5F"/>
+  <!-- White logo -->
+  <g transform="translate(146.5, 150) scale(0.8)"><path fill="white" d="M50,20 C35,20 25,35 25,50 C25,65 35,80 50,80 C65,80 75,65 75,50 C75,35 65,20 50,20 M40,35 L60,35 M35,50 L65,50 M40,65 L60,65"/></g>
+  <!-- Typography -->
+  <text x="196.5" y="320" font-family="Georgia, serif" font-size="36" font-weight="bold" fill="white" text-anchor="middle" letter-spacing="6">Airbnb</text>
+  <text x="196.5" y="380" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" opacity="0.7" letter-spacing="8">COLLECTION</text>
+</svg>

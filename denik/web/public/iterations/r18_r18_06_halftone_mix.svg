@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 550">
+  <rect width="400" height="550" fill="#222222"/>
+  <defs>
+    <pattern id="halftone" width="8" height="8" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="3" fill="#FF5A5F"/>
+    </pattern>
+  </defs>
+  <rect x="40" y="40" width="320" height="320" rx="10" fill="url(#halftone)"/>
+  <text x="200" y="250" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="white" text-anchor="middle">airbnb</text>
+  <rect x="60" y="380" width="280" height="130" rx="8" fill="#FF5A5F"/>
+  <text x="200" y="450" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">brand designs</text>
+</svg>

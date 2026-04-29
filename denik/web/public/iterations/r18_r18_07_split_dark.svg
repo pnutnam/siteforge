@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 550">
+  <polygon points="0,0 400,0 400,275 0,275" fill="#FF5A5F"/>
+  <polygon points="0,275 400,275 400,550 0,550" fill="#222222"/>
+  <line x1="0" y1="275" x2="400" y2="275" stroke="white" stroke-width="3"/>
+  <text x="200" y="140" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="white" text-anchor="middle">airbnb</text>
+  <text x="200" y="400" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">airbnb</text>
+</svg>
